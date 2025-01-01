@@ -7,7 +7,7 @@ export default function Note_Tag({tags_arr}:note_tags_props) {
         {
             tags_arr.map(item => {
                 return (
-                    <p className={`${presets.preset6} bg-[#E0E4EA]`}>{item}</p>
+                    <p className={`${presets.preset6} bg-[#E0E4EA] rounded-lg`}>{item}</p>
                 )
             })
         }
