@@ -9,8 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        text9: "var(--text-950)",
+        text8: "var(--text-800)",
+        text7: "var(--text-700)",
+        text6: "var(--text-600)",
+        text5: "var(--text-500)",
+        text4: "var(--text-400)",
+        text3: "var(--text-300)",
+        text2: "var(--text-200)",
+        text1: "var(--text-100)",
+        t_e_d: "var(--tag_edited_date)",
+        bak_g: "var(--background)",
+        auth_page: "var(--auth-page)"
       },
     },
   },
