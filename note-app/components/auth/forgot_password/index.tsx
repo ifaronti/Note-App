@@ -1,21 +1,20 @@
+'use client'
 import Email_Input from "../form/email_input";
 import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
 import { useState } from "react";
-import { formEvent, inputEvent } from "@/component/models/props";
-import { presets } from "@/component/text";
+import { formEvent, inputEvent } from "@/components/models/props";
+import { presets } from "@/components/text";
 
-type prop = {sendLink:(email:string)=>void}
+type prop = {sendLink:(formData:FormData)=>void}
 
 export default function Forgot_Password({sendLink}:prop) {
-    const [info, setInfo] = useState({ email: '', password: '' })
+    const [email, setEmail] = useState('')
     const [error, setError] = useState(false)
     
     const handleChange = (e: inputEvent) => {
         setError(false)
-        return setInfo(prev => {
-            return {...prev, email:e.target.value}
-        })
+        return setEmail(e.target.value)
     }
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.patternMismatch) {
@@ -23,23 +22,15 @@ export default function Forgot_Password({sendLink}:prop) {
         }
     }
 
-    async function handleSubmit (e:formEvent){
-        e.preventDefault()
-        if (!info.email || error) {
-            return
-        }
-        sendLink(info.email)
-    }
-
     return (
-        <section className="flex flex-col gap-4 md:w-[540px] px-4 py-48 w-[343px] md:px-12">
+        <section className="flex flex-col bg-bak_g rounded-lg gap-4 md:w-[540px] px-4 py-12 w-[343px] md:px-12">
             <Auth_Hero
                 header="Forgotten your password?"
                 description="Enter your email below, and we’ll send you a link to reset it."
             />
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form action={sendLink} className="flex flex-col gap-4">
                 <Email_Input
-                    userInfo={info}
+                    value={email}
                     handleChange={handleChange}
                     handleBlur={handleBlur}
                 />

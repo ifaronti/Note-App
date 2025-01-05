@@ -1,6 +1,7 @@
+'use client'
 import Form_Component from "./form";
 import { useState } from "react";
-import { formEvent, inputEvent } from "@/component/models/props";
+import { formEvent, inputEvent } from "@/components/models/props";
 
 type props = {
     btn_text: string
@@ -33,7 +34,6 @@ export default function Form({btn_text, handleSubmit}:props) {
         }
     
     return (
-        <div>
             <Form_Component
                 handleBlur={handleBlur}
                 handleChange={handleChange}
@@ -42,6 +42,5 @@ export default function Form({btn_text, handleSubmit}:props) {
                 errors={errors}
                 btn_text={btn_text}
             />
-        </div>
     )
 }

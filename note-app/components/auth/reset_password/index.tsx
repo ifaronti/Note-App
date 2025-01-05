@@ -1,9 +1,11 @@
+'use client'
 import Password_Input from "../form/password_input";
 import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
 import { useState } from "react";
-import { formEvent, inputEvent } from "@/component/models/props";
-import { presets } from "@/component/text";
+import { formEvent, inputEvent } from "@/components/models/props";
+import { presets } from "@/components/text";
+import { useResePassword } from "@/hooks/reset_password";
 
 export default function Reset_Password() {
     const [info, setInfo] = useState({ confirm: '', password: '' })
@@ -32,10 +34,11 @@ export default function Reset_Password() {
         if (!password || password !== confirm ||  error) {
             return
         }
+        await useResePassword(password)
     }
     
     return (
-        <section className="flex bg-bak_g rounded-lg flex-col gap-4 md:w-[540px] px-4 py-48 w-[343px] md:px-12">
+        <section className="flex bg-bak_g rounded-lg flex-col gap-4 md:w-[540px] px-4 py-12 w-[343px] md:px-12">
             <Auth_Hero
                 header="Forgotten your password?"
                 description="Enter your email below, and we’ll send you a link to reset it."
@@ -53,10 +56,10 @@ export default function Reset_Password() {
                     id="Confirm"
                 />
                 <Form_Errors
-                    text="Please enter a valid email address"
+                    text="Password must be 8 characters long"
                     error = {error}
                 />
-                <button type="submit" className={`${presets.preset3} cursor-pointer w-full hover:bg-[#2547D0] h-10 rounded-lg bg-[#335CFF] text-white`}>Send Reset Link</button>
+                <button type="submit" className={`${presets.preset3} cursor-pointer w-full hover:bg-[#2547D0] h-10 rounded-lg bg-[#335CFF] text-white`}>Reset Password</button>
             </form>
         </section>
     )

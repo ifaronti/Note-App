@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { FormEvent, ReactNode } from "react"
 import { note } from "./items"
 
 export type nav_btn = {
@@ -31,7 +31,7 @@ export type toggle_props = {
 
 export type inputEvent = React.ChangeEvent<HTMLInputElement>;
 export type formEvent = React.FormEvent<HTMLFormElement>;
-type auth_info = { email: string, password: string }
+export type auth_info = { email: string, password: string }
 
 export type inputProps = {
     value: string
@@ -41,7 +41,7 @@ export type inputProps = {
 }
 
 export type auth_form = {
-    handleSubmit: (userInfo:auth_info) => void,
+    handleSubmit: (formData:FormData) => void,
     handleBlur: (e: inputEvent) => void,
     handleChange: (e: inputEvent) => void
     userInfo: auth_info
