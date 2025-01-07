@@ -5,21 +5,25 @@ import Auth_Hero from "../auth_hero";
 import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import { presets } from "@/components/text";
+import Form_Btn from "../form/form_btn";
 
 type prop = {sendLink:(formData:FormData)=>void}
 
 export default function Forgot_Password({sendLink}:prop) {
-    const [email, setEmail] = useState('')
     const [error, setError] = useState(false)
     
-    const handleChange = (e: inputEvent) => {
-        setError(false)
-        return setEmail(e.target.value)
-    }
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.patternMismatch) {
             return setError(true)
         }
+    }
+
+    async function handleSubmit(e: formEvent) {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const email = formData.get('email')
+        const response = sendLink(formData)
+        return response
     }
 
     return (
@@ -28,17 +32,15 @@ export default function Forgot_Password({sendLink}:prop) {
                 header="Forgotten your password?"
                 description="Enter your email below, and we’ll send you a link to reset it."
             />
-            <form action={sendLink} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <Email_Input
-                    value={email}
-                    handleChange={handleChange}
                     handleBlur={handleBlur}
                 />
                 <Form_Errors
                     text="Please enter a valid email address"
                     error = {error}
                 />
-                <button type="submit" className={`${presets.preset3} cursor-pointer w-full hover:bg-[#2547D0] h-10 rounded-lg bg-[#335CFF] text-white`}>Send Reset Link</button>
+            <Form_Btn btn_text="Send Reset Link"/>
             </form>
         </section>
     )

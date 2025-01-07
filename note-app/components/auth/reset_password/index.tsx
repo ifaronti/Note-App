@@ -6,22 +6,11 @@ import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import { presets } from "@/components/text";
 import { useResePassword } from "@/hooks/reset_password";
+import Form_Btn from "../form/form_btn";
 
 export default function Reset_Password() {
-    const [info, setInfo] = useState({ confirm: '', password: '' })
     const [error, setError] = useState(false)
-    
-    const handleChange = (e: inputEvent) => {
-        setError(false)
-        if (e.target.placeholder !== '') {
-            return setInfo(prev => {
-                return {...prev, confirm:e.target.value}
-            })
-        }
-        setInfo(prev => {
-            return {...prev, password:e.target.value}
-        })
-    }
+
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.tooShort) {
             return setError(true)
@@ -30,7 +19,10 @@ export default function Reset_Password() {
 
     async function handleSubmit (e:formEvent){
         e.preventDefault()
-        const {password, confirm} = info
+        const formData = new FormData(e.currentTarget)
+        const password = String(formData.get('password'))
+        const confirm = String(formData.get('confirm'))
+    
         if (!password || password !== confirm ||  error) {
             return
         }
@@ -44,22 +36,12 @@ export default function Reset_Password() {
                 description="Enter your email below, and we’ll send you a link to reset it."
             />
             <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
-                <Password_Input
-                    value={info.password}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                />
-                <Password_Input
-                    value={info.confirm}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    id="Confirm"
-                />
-                <Form_Errors
-                    text="Password must be 8 characters long"
-                    error = {error}
-                />
-                <button type="submit" className={`${presets.preset3} cursor-pointer w-full hover:bg-[#2547D0] h-10 rounded-lg bg-[#335CFF] text-white`}>Reset Password</button>
+                <Password_Input handleBlur={handleBlur} name="password" />
+
+                <Password_Input handleBlur={handleBlur} name="confirm" />
+
+                <Form_Errors text="Password must be 8 characters long" error = {error} />
+                <Form_Btn btn_text="Reset Password" />
             </form>
         </section>
     )

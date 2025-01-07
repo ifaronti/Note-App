@@ -34,17 +34,13 @@ export type formEvent = React.FormEvent<HTMLFormElement>;
 export type auth_info = { email: string, password: string }
 
 export type inputProps = {
-    value: string
     handleBlur: (e: inputEvent) => void,
-    handleChange: (e: inputEvent) => void
-    id?:string
+    name?:string
 }
 
 export type auth_form = {
     handleSubmit: (formData:FormData) => void,
     handleBlur: (e: inputEvent) => void,
-    handleChange: (e: inputEvent) => void
-    userInfo: auth_info
     errors: { email: boolean, password: boolean }
     btn_text:string
 }

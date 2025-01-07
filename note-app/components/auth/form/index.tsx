@@ -9,16 +9,7 @@ type props = {
 }
 
 export default function Form({btn_text, handleSubmit}:props) {
-        const [userInfo, setUserInfo] = useState({ email: '', password: '' })
         const [errors, setErrors] = useState({ email: false, password: false })
-    
-        const handleChange = (e: inputEvent) => {
-            const { name, value } = e.target
-            setErrors({email:false, password:false})
-            setUserInfo(prev => {
-                return {...prev, [name]:value}
-            })
-        }
     
         const handleBlur = (e: inputEvent) => {
             if (e.target.validity.tooShort) {
@@ -36,9 +27,7 @@ export default function Form({btn_text, handleSubmit}:props) {
     return (
             <Form_Component
                 handleBlur={handleBlur}
-                handleChange={handleChange}
                 handleSubmit={handleSubmit}
-                userInfo={userInfo}
                 errors={errors}
                 btn_text={btn_text}
             />
