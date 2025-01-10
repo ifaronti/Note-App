@@ -15,8 +15,7 @@ export type note_tags_props = {
 
 export type note_props = {
     note: note
-    tags: string[]
-    current_note: string
+    current_note: (note:note)=>void
 }
 
 export type auth_hero = {
