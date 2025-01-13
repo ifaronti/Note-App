@@ -1,23 +1,24 @@
 'use client'
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
-import { cross_icon } from "../svg_assets"
-import { presets } from "../text"
 import Note from "./one_note"
 import { useEffect, useState } from "react"
 import { note } from "../models/items"
 import { get_notes } from "@/hooks/get_notes"
 import HR_LINE from "../hr_line"
-
+import Full_Note from "./full_note"
+import Delete_Or_Archive from "./archive_delete"
+import Notes_Sidebar from "./notes_sidebar"
 
 export default function Notes_Panel() {
     const [notes, setNotes] = useState<note[]>([])
-    const [current, setCurrent] = useState<note>()
+    const [current, setCurrent] = useState<note|undefined>()
     
     const params = useSearchParams()
     const searchParams = new URLSearchParams(params)
     const router = useRouter()
     const pathName = usePathname()
+    const pane = params.get('pane')
 
     const set_current = (note:note) => {
         searchParams.set("title", note.title)
@@ -33,27 +34,34 @@ export default function Notes_Panel() {
         set_notes()
     }, [])
 
+    const handleChange = (e: any) => {
+        //@ts-expect-error
+        setCurrent({...current, content:e.currentTarget.value})
+    }
+    
     const render_notes = notes.map((item, index) => {
+        return item.isArchived? '':
+            <div key={index+1} className={`${index+1 === notes.length? 'mb-10':''}`}>
+                <Note note={item} current_note={()=>set_current(item)} />
+                {index+1 === notes.length || current?.title === item.title? "": <HR_LINE/>}
+            </div>
         
-        return (
+    })
+    const render_archived = notes.map((item, index) => {
+        return !item.isArchived? '':
             <div key={index+1}>
                 <Note note={item} current_note={()=>set_current(item)} />
                 {index+1 === notes.length || current?.title === item.title? "": <HR_LINE/>}
             </div>
-        )
+        
     })
 
     return (
-        <div className="w-full relative py-5 h-full">
-            <div className=" gap-4 h-full overflow-y-scroll no-scrollbar flex flex-col xl:border-r-[1px] xl:border-r-[#E0E4EA] w-full xl:w-[290px] px-8 xl:px-[unset] xl:pl-8 xl:pr-4">
-                <button className={`border-none flex-shrink-0 ${presets.preset4} bg-[#335CFF] h-16 w-16 text-white xl:w-[242px] rounded-lg xl:h-[41px]`}>
-                    <span className="hidden xl:block">+ Create New Note</span>
-                    <span className="block xl:hidden">{cross_icon}</span>
-                </button>
-                <div className="w-full h-full">
-                    {render_notes}
-                </div>
-            </div>
+        <div className="w-full flex relative h-full pr-8">
+            {/*//@ts-expect-error */}
+            <Notes_Sidebar render_archived={render_archived} render_notes={render_notes}/>
+            <Full_Note handleChange={handleChange} current={current} />
+            <Delete_Or_Archive/>
         </div>
     )
 }

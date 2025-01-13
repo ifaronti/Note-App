@@ -9,8 +9,7 @@ export type nav_btn = {
 }
 
 export type note_tags_props = {
-    tags_arr: string[]
-    
+    tags_arr: string[]  
 }
 
 export type note_props = {

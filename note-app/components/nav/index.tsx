@@ -12,7 +12,7 @@ export default function NavBar() {
 
     function change_pane(current_pane: string) {
         search_params.set("pane", current_pane)
-        return router.replace(`${pathName}?pane=${current_pane}`)
+        return router.replace(`${pathName}?${search_params}`)
     }
 
     return (

@@ -2,6 +2,7 @@ import Note_Tag from "./note_tags";
 import { presets } from "../text";
 import { note_props } from "../models/props";
 import { useSearchParams } from "next/navigation";
+import { format_date } from "./format_date";
 
 export default function Note({ note, current_note }: note_props) {
     const params = useSearchParams()
@@ -14,7 +15,7 @@ export default function Note({ note, current_note }: note_props) {
         >
             <h3 className={`${presets.preset3}`}>{note.title}</h3>
             <Note_Tag tags_arr={note.tags} />
-            <p className={`${presets.preset6}`}>{note.lastEdited}</p>
+            <p className={`${presets.preset6}`}>{format_date(note.lastEdited)}</p>
         </article>
     )
 }

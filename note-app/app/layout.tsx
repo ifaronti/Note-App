@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="h-screen overflow-y-scroll w-full 2xl:w-[1440px] mx-auto">
+        <main className="h-screen overflow-y-scroll no-scrollbar w-full 2xl:w-[1440px] mx-auto">
           {children}
         </main>
       </body>
