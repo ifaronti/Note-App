@@ -12,10 +12,11 @@ type props = {
     name:string
 }
 
-export default function Theme_Input({ mode, value, name, current, text, icon, handleChange }: props) {
+export default function Theme_Input({ mode, value, name,
+    current, text, icon, handleChange }: props) {
     
     return (
-        <label htmlFor={value} className={`${current === value?'bg-text1':''} h-[72px] border border-[#E0E4EA] xl:w-[528px] w-full px-4 rounded-xl flex justify-between items-center`}>
+        <label htmlFor={value} className={`${current === value? 'bg-input_bg':''} hover:bg-input_bg h-[72px] border border-[#E0E4EA] xl:w-[528px] w-full px-4 rounded-xl flex justify-between items-center`}>
             <div className="flex items-center gap-4">
                 <div className="w-10 border bg-white border-[#E0E4EA] h-10 flex items-center justify-center rounded-xl">{icon}</div>
                 <div className="flex flex-col">

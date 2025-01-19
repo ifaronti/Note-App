@@ -12,11 +12,8 @@ export default async function Page() {
                 header="Welcome to note"
                 description="Please login to continue"
             />
-            <Form
-                btn_text="Login"
-                //@ts-expect-error
-                handleSubmit={useLogin}
-            />
+            
+            <Form btn_text="Login"/>
 
             <Auth_Links />
         </section>

@@ -9,7 +9,7 @@ const callClient = axios.create({
 
 callClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('token') || ''
-    config.headers.authorization = `Booyaba ${token}`
+    config.headers.authorization = `Bearer ${token}`
     return config
 })
 

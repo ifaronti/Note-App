@@ -4,7 +4,6 @@ export default function Email_Input({handleBlur}:inputProps) {
     return (
         <div className="flex flex-col-reverse w-full gap-1">
             <input
-                required
                 type="email"
                 placeholder="email@example.com"
                 pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"

@@ -1,8 +1,11 @@
 'use server'
+import { formEvent } from '@/components/models/props';
 import axios from 'axios'
 
-export async function useReset(formData:FormData) {
+export async function useResetLink(body:{email:string}) {
+    const url = process.env.APP_URL
 
-    return console.log(formData.get('email'));
+    const { data } = await axios.post(`${url}/auth/login/forgot`, body)
     
+    return data
 }

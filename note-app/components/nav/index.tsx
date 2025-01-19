@@ -2,6 +2,7 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { presets } from "../text";
 import { search_icon, setting_icon } from "../svg_assets";
+import { formEvent} from "../models/props";
 
 export default function NavBar() {
     const pathName = usePathname()
@@ -15,13 +16,18 @@ export default function NavBar() {
         return router.replace(`${pathName}?${search_params}`)
     }
 
+    function handleSubmit(e: formEvent) {
+        const formData = new FormData(e.currentTarget)
+        search_params.set('search', String(formData.get("search")))
+    }
+
     return (
         <nav className="h-fit px-8 xl:h-[81px] justify-between border-b-[1px] border-b-[#E0E4EA] flex xl:items-center">
             <h1 className={`${presets.preset1} text-text9`}>
                 {pane === "Home"? "All Notes":pane}
             </h1>
             <div className="flex items-center gap-4">
-                <form className="h-11 w-[300px] flex items-center gap-2 rounded-lg px-4 border border-[#CACFD8]">
+                <form onSubmit={handleSubmit} className="h-11 w-[300px] flex items-center gap-2 rounded-lg px-4 border border-[#CACFD8]">
                     
                     <button type="button" className="bg-none border-none">
                         {search_icon}

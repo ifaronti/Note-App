@@ -17,7 +17,7 @@ export default {
         text4: "var(--text-400)",
         text3: "var(--text-300)",
         text2: "var(--text-200)",
-        text1: "var(--text-100)",
+        input_bg: "var(--input-bg)",
         t_e_d: "var(--tag_edited_date)",
         bak_g: "var(--background)",
         auth_page: "var(--auth-page)",

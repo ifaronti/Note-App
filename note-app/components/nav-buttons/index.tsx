@@ -23,7 +23,7 @@ export default function Nav_Buttons() {
                     {home_svg}
                     <span>All Notes</span>
                 </span>
-                <span>{chevy_right}</span>
+                {current_pane === "Home" && <span>{chevy_right}</span>}
             </button>
 
             <button onClick={()=>change_pane("Archived")} className={`flex px-3 h-10 w-full ${current_pane === "Archived"? "bg-auth_page text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
@@ -31,7 +31,7 @@ export default function Nav_Buttons() {
                     {archived_svg}
                     <span>Archived Notes</span>
                 </span>
-                <span>{chevy_right}</span>
+                {current_pane === "Archived" && <span>{chevy_right}</span>}
             </button>
         </div>
     )

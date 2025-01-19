@@ -1,5 +1,4 @@
 
-
 export function format_date(date:string) {
     const newDate = new Date(date)
     const day =newDate.getDate() + ' '

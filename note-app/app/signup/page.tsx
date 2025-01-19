@@ -1,9 +1,7 @@
-'use server'
+
 import Form from "@/components/auth/form";
 import Auth_Hero from "@/components/auth/auth_hero";
 import Auth_Links from "@/components/auth/auth_links";
-import {useLogin}from "@/hooks/login";
-
 
 export default async function Page() {
         
@@ -13,12 +11,7 @@ export default async function Page() {
                 header="Welcome to note"
                 description="Please login to continue"
             />
-            <Form
-                btn_text="Login"
-                //@ts-expect-error
-                handleSubmit={useLogin}
-            />
-
+            <Form btn_text="Signup"/>
             <Auth_Links />
         </section>
     )

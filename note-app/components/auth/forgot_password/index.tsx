@@ -4,13 +4,14 @@ import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
 import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
-import { presets } from "@/components/text";
 import Form_Btn from "../form/form_btn";
+import { useResetLink } from "@/hooks/reset_link";
+import { presets } from "@/components/text";
 
-type prop = {sendLink:(formData:FormData)=>void}
 
-export default function Forgot_Password({sendLink}:prop) {
+export default function Forgot_Password() {
     const [error, setError] = useState(false)
+    const [message, setMessage] = useState('')
     
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.patternMismatch) {
@@ -21,9 +22,12 @@ export default function Forgot_Password({sendLink}:prop) {
     async function handleSubmit(e: formEvent) {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
-        const email = formData.get('email')
-        const response = sendLink(formData)
-        return response
+        const body = { email: String(formData.get('email')) }
+        const response = await useResetLink(body)
+        if (response.access_token) {
+            localStorage.setItem('token', response.access_token)
+            setMessage(response.message)
+        }
     }
 
     return (
@@ -42,6 +46,7 @@ export default function Forgot_Password({sendLink}:prop) {
                 />
             <Form_Btn btn_text="Send Reset Link"/>
             </form>
+            {message && <p className={`${presets.preset4}`}>{message}</p>}
         </section>
     )
 }

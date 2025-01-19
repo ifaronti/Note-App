@@ -44,7 +44,7 @@ export default function Color_Theme() {
                 />
             </div>
             <div className="xl:w-[528px] w-full flex justify-end">
-                <Apply_Changes apply_changes={apply_changes}/>
+                <Apply_Changes apply_changes={apply_changes} text="Apply Changes"/>
             </div>
         </div>
     )

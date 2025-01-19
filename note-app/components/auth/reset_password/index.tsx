@@ -4,11 +4,10 @@ import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
 import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
-import { presets } from "@/components/text";
 import { useResePassword } from "@/hooks/reset_password";
 import Form_Btn from "../form/form_btn";
 
-export default function Reset_Password() {
+export default async function Reset_Password() {
     const [error, setError] = useState(false)
 
     const handleBlur = (e: inputEvent) => {
@@ -26,7 +25,9 @@ export default function Reset_Password() {
         if (!password || password !== confirm ||  error) {
             return
         }
-        await useResePassword(password)
+        const response = await useResePassword({password:password}, String(localStorage.getItem('token')))
+
+        console.log(response);
     }
     
     return (
@@ -36,9 +37,9 @@ export default function Reset_Password() {
                 description="Enter your email below, and we’ll send you a link to reset it."
             />
             <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
-                <Password_Input handleBlur={handleBlur} name="password" />
+                <Password_Input handleBlur={handleBlur} label="Password" name="password" />
 
-                <Password_Input handleBlur={handleBlur} name="confirm" />
+                <Password_Input handleBlur={handleBlur} label="Confirm Password" name="confirm" />
 
                 <Form_Errors text="Password must be 8 characters long" error = {error} />
                 <Form_Btn btn_text="Reset Password" />

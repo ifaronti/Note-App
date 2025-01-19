@@ -1,12 +1,16 @@
 "use server"
+
+import { formEvent } from "@/components/models/props"
 import axios from "axios"
 
-export async function Register(formData: FormData) {
-    
-    const rawData = {
-        email:formData.get('email'),
-        password:formData.get('password'),
-    }
-    console.log(rawData);
-    return console.log('Raw in and out!')   
+export type body = {
+    email: string
+    password:string
+}
+
+export async function register(body:body) {
+    const url = process.env.APP_URL
+
+    await axios.post(`${url}/auth/signup`, body)
+    console.log('Raw in and out!')   
 }

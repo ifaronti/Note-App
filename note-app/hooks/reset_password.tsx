@@ -1,5 +1,11 @@
 "use server"
 
-export async function useResePassword(password: string) {
-    return console.log("Password sent to cloud to be encrypted and stored in database")
+import axios from "axios"
+
+export async function useResePassword(body:{password:string}, token:string) {
+    const url = process.env.APP_URL
+    
+    const { data } = await axios.patch(`${url}/auth/login/reset`, body,{headers:{Authorization:`Bearer ${token}`}})    
+    
+    return data
 }
