@@ -6,24 +6,23 @@ import { presets } from "../text";
 import { GetTags } from "@/hooks/get_tags";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import useSWR from 'swr'
 
 export default function Tags() {
     const [tagsArr, setTagsArr] = useState<string[]>([])
-    const current_tag = useSearchParams().get('tag')
-    // const fetcher = (String(localStorage.getItem('token')))
-    // const {data} = useSWR(`${process.env.APP_URL}/notes/tags`, GetTags)
-
-    // console.log(data);
+    const searchParams = new URLSearchParams(useSearchParams())
+    const current_tag = searchParams.get('tag')
+    const retags = searchParams.get('retags')
+    const refetch_tags = retags === "true" ? true : false
     
-    // useEffect(() => {
-    //     const get_tags = async () => {
-    //         const data = await GetTags(String(localStorage.getItem('token')))
-    //         const newData = [...data.tags]
-    //         setTagsArr(newData)
-    //     }
-    //     get_tags()
-    // },[])
+    useEffect(() => {
+        const get_tags = async () => {
+            const data = await GetTags(String(localStorage.getItem('token')), refetch_tags)
+            const newData = [...data.tags]
+            setTagsArr(newData)
+            searchParams.set('retags', 'false')
+        }
+        get_tags()
+    },[])
 
     const all_tags = tagsArr.map((item, index) => {
         return (

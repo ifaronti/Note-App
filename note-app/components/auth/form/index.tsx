@@ -3,8 +3,9 @@ import Form_Component from "./form";
 import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import { usePathname } from "next/navigation";
-import { register } from "@/hooks/signup";
-import { useLogin } from "@/hooks/login";
+import { register, signupRes } from "@/hooks/signup";
+import { loginres, useLogin } from "@/hooks/login";
+import { useRouter } from "next/navigation";
 
 type props = {
     btn_text: string
@@ -14,6 +15,7 @@ export default function Form({btn_text}:props) {
     const [errors, setErrors] = useState({ email: false, password: false })
     const [toast, setToast] = useState('')
     const path = usePathname()
+    const router = useRouter()
     
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.tooShort) {
@@ -41,17 +43,20 @@ export default function Form({btn_text}:props) {
         formData.delete('email')
 
         try {
-            const data = path.includes('login') ? await useLogin(formData) : await register(rawData)
+           //@ts-expect-error
+            const data:loginres & signupRes = path.includes('login') ? await useLogin(formData) : await register(rawData)
             if (data.access_token) {
                 localStorage.setItem('token', data.access_token)
+                setToast('logged in successfully')
+                router.push('/dashboard?pane=Home&retags=true&renotes=false')
             }
-            setToast(data.message)
+            if (data.success) {
+                router.push('/login')
+            }
         }
         catch (err: any) {
-            //@ts-expect-error
-            setToast(e.message)
+            setToast(err.message)
         }
-    
     }
 
     return (

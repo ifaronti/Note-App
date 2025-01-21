@@ -33,7 +33,7 @@ export default function Note_Header({ current, handleChange }: props) {
                     {title ==
                         "Untitled Note"
                         ?
-                        'Not yet saved' : format_date(String(current.lastEdited))}
+                        'Not yet saved' : format_date(String(current.last_edited))}
                 </span>
             </div>
         </>

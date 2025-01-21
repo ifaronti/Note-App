@@ -2,6 +2,6 @@ export type note = {
     title: string
     tags: string[]
     content: string
-    lastEdited: string
-    isArchived: boolean
+    last_edited: string
+    is_archived: boolean
 }

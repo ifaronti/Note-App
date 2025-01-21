@@ -17,6 +17,8 @@ export default function Notes_Panel() {
     const searchParams = new URLSearchParams(params)
     const router = useRouter()
     const pathName = usePathname()
+    const renotes = params.get('renotes')
+    const fetch_notes = renotes === 'true'? true:false
 
     const set_current = (note:note) => {
         searchParams.set("title", note.title)
@@ -25,7 +27,7 @@ export default function Notes_Panel() {
     }
 
     function new_note() {
-        const empty_note ={title: 'Untitled Note', tags: [], content: '', lastEdited: 'Not yet saved', isArchived: false}
+        const empty_note ={title: 'Untitled Note', tags: [], content: '', last_edited: 'Not yet saved', is_archived: false}
         setCurrent(empty_note)
         searchParams.set('title', empty_note.title)
         router.replace(`${pathName}?${searchParams}`)
@@ -33,9 +35,10 @@ export default function Notes_Panel() {
     
     useEffect(() => {
         const set_notes = async () => {
-            const data = await get_notes()
-            setNotes(data)
-            setCurrent(data[0])
+            const data = await get_notes(String(localStorage.getItem('token')), fetch_notes)
+            setNotes(data.data)
+            setCurrent(data.data[0])
+            searchParams.set('renotes', "false")
         }
         set_notes()
     }, [])
@@ -55,7 +58,7 @@ export default function Notes_Panel() {
     
     const render_notes = notes.map((item, index) => {
         return (
-            item.isArchived ? '' :
+            item.is_archived ? '' :
             (
                 <div key={index+1} className={`${index+1 === notes.length? 'mb-10':''}`}>
                     <Note note={item} current_note={()=>set_current(item)} />
@@ -67,7 +70,7 @@ export default function Notes_Panel() {
     })
 
     const render_archived = notes.map((item, index) => {
-        return !item.isArchived? '':
+        return !item.is_archived? '':
             <div key={index+1}>
                 <Note note={item} current_note={()=>set_current(item)} />
                 {index+1 === notes.length || current?.title === item.title? "": <HR_LINE/>}

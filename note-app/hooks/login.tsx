@@ -1,11 +1,24 @@
 'use server'
 import axios from "axios"
-import { body } from "./signup"
+
+export type loginres = {
+    access_token: string
+    success: boolean
+    token_type:string
+}
+
 
 export async function useLogin(formData:FormData) {
     const url = process.env.APP_URL 
+    let resData:loginres =  {access_token:'', success:false, token_type:"Bearer"}  
+    try {
+        const { data } = await axios.post<loginres>(`${url}/auth/login`, formData)
 
-    const { data } = await axios.post(`${url}/auth/login`, formData)
-    
-    return data
+        resData = data
+    }
+    catch (error:any) {
+        throw new Error(error.message)
+    }
+   
+    return resData
 }

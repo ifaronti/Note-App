@@ -15,7 +15,7 @@ export default function Note({ note, current_note }: note_props) {
         >
             <h3 className={`${presets.preset3}`}>{note.title}</h3>
             <Note_Tag tags_arr={note.tags} />
-            <p className={`${presets.preset6}`}>{format_date(note.lastEdited)}</p>
+            <p className={`${presets.preset6}`}>{format_date(note.last_edited)}</p>
         </article>
     )
 }
