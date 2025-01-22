@@ -77,7 +77,6 @@ export default function Notes_Panel() {
                 <Note note={item} current_note={()=>set_current(item)} />
                 {index+1 === notes.length || current?.title === item.title? "": <HR_LINE/>}
             </div>
-        
     })
 
     return (

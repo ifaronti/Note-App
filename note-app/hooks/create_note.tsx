@@ -6,7 +6,6 @@ type body = {
     title: string
     tags: string[]
     content: string
-    last_edited:string
 }
 
 export async function new_note(body:body, token:string){
