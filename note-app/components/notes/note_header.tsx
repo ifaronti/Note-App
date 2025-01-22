@@ -18,7 +18,7 @@ export default function Note_Header({ current, handleChange }: props) {
                 </span>
                 <input
                     type="text"
-                    value={current.tags}
+                    value={String(current?.tags)}
                     name="tags"
                     onChange={handleChange}
                     placeholder="Add tags separated by commas (e.g. Work, Planning)"
@@ -33,7 +33,7 @@ export default function Note_Header({ current, handleChange }: props) {
                     {title ==
                         "Untitled Note"
                         ?
-                        'Not yet saved' : format_date(String(current.last_edited))}
+                        'Not yet saved' : format_date(String(current?.last_edited))}
                 </span>
             </div>
         </>

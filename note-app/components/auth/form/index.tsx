@@ -48,9 +48,9 @@ export default function Form({btn_text}:props) {
             if (data.access_token) {
                 localStorage.setItem('token', data.access_token)
                 setToast('logged in successfully')
-                router.push('/dashboard?pane=Home&retags=true&renotes=false')
+                router.push('/dashboard?pane=Home&retags=false&renotes=false')
             }
-            if (data.success) {
+            if (data.message) {
                 router.push('/login')
             }
         }

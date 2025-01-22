@@ -19,10 +19,9 @@ export default function Tags() {
             const data = await GetTags(String(localStorage.getItem('token')), refetch_tags)
             const newData = [...data.tags]
             setTagsArr(newData)
-            searchParams.set('retags', 'false')
         }
         get_tags()
-    },[])
+    },[retags])
 
     const all_tags = tagsArr.map((item, index) => {
         return (

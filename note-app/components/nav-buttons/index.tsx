@@ -13,7 +13,7 @@ export default function Nav_Buttons() {
 
     function change_pane(current_pane: string) {
         searchParams.set("pane", current_pane)
-        return router.replace(`${pathName}?pane=${current_pane}`)
+        return router.replace(`${pathName}?${searchParams}`)
     }
 
     return (

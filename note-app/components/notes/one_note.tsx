@@ -13,9 +13,9 @@ export default function Note({ note, current_note }: note_props) {
         <article onClick={() => current_note(note)}
             className={`flex rounded-lg cursor-pointer ${title === note.title? 'bg-[#F3F5F8]':''} flex-col gap-3 p-2`}
         >
-            <h3 className={`${presets.preset3}`}>{note.title}</h3>
-            <Note_Tag tags_arr={note.tags} />
-            <p className={`${presets.preset6}`}>{format_date(note.last_edited)}</p>
+            {note.title && <h3 className={`${presets.preset3}`}>{note.title}</h3>}
+            {note.tags && <Note_Tag tags_arr={note.tags} />}
+            {note.last_edited && <p className={`${presets.preset6}`}>{format_date(note.last_edited)}</p>}
         </article>
     )
 }

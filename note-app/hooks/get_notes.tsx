@@ -19,10 +19,10 @@ export async function get_notes(token:string, refetch:boolean, parameter?:string
         url =`${url}?parameter=${parameter}`
     }
     
-    if (notes.data[0] || !refetch) {
-        return notes
-    }
     try {
+        if (notes.data[0] && refetch===false) {
+            return notes
+        }
         const {data} = await axios.get<resBody>(url, {headers:{Authorization:`Bearer ${token}`}})
         if (data.success) {
             notes = data

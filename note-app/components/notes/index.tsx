@@ -11,13 +11,13 @@ import Notes_Sidebar from "./notes_sidebar"
 export default function Notes_Panel() {
     const [notes, setNotes] = useState<note[]>([])
     //@ts-expect-error
-    const [current, setCurrent] = useState<note>([])
+    const [current, setCurrent] = useState<note>({})
     
     const params = useSearchParams()
     const searchParams = new URLSearchParams(params)
     const router = useRouter()
     const pathName = usePathname()
-    const renotes = params.get('renotes')
+    const renotes = searchParams.get('renotes')
     const fetch_notes = renotes === 'true'? true:false
 
     const set_current = (note:note) => {
@@ -29,6 +29,7 @@ export default function Notes_Panel() {
     function new_note() {
         const empty_note ={title: 'Untitled Note', tags: [], content: '', last_edited: 'Not yet saved', is_archived: false}
         setCurrent(empty_note)
+        setNotes(prev=>[{...empty_note, last_edited:''}, ...prev])
         searchParams.set('title', empty_note.title)
         router.replace(`${pathName}?${searchParams}`)
     }
@@ -38,10 +39,11 @@ export default function Notes_Panel() {
             const data = await get_notes(String(localStorage.getItem('token')), fetch_notes)
             setNotes(data.data)
             setCurrent(data.data[0])
-            searchParams.set('renotes', "false")
+            searchParams.set('title', data.data[0].title)
+            return
         }
         set_notes()
-    }, [])
+    }, [renotes])
 
     const handleChange = (e: any) => {
         const { name, value } = e.currentTarget || e.target
@@ -55,7 +57,7 @@ export default function Notes_Panel() {
         }
         setCurrent({...current, [name]:value})
     }
-    
+        
     const render_notes = notes.map((item, index) => {
         return (
             item.is_archived ? '' :
@@ -82,7 +84,7 @@ export default function Notes_Panel() {
         <div className="w-full flex relative h-full pr-8">
             {/*//@ts-expect-error */}
             <Notes_Sidebar create_note={new_note} render_archived={render_archived} render_notes={render_notes} />
-            <Full_Note handleChange={handleChange} current={current} />
+            <Full_Note update_details={current} handleChange={handleChange} current={current} />
             <Delete_Or_Archive/>
         </div>
     )
