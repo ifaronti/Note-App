@@ -1,8 +1,15 @@
-import { auth_form } from "../../models/props"
+import { formEvent, inputEvent } from "../../models/props"
 import Form_Errors from "./errors"
 import Email_Input from "./email_input"
 import Password_Input from "./password_input"
 import Form_Btn from "./form_btn"
+
+export type auth_form = {
+    handleSubmit: (e:formEvent) => void,
+    handleBlur: (e: inputEvent) => void,
+    errors: { email: boolean, password: boolean }
+    btn_text:string
+}
 
 export default function Form_Component({
     handleSubmit,

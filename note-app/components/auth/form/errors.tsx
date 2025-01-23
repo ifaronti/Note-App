@@ -1,6 +1,10 @@
 import { presets } from "@/components/text"
 import { info_icon } from "@/components/svg_assets"
-import { form_errors } from "@/components/models/props"
+
+export type form_errors = {
+    error: boolean
+    text:string
+}
 
 export default function Form_Errors({ error, text }:form_errors) {
     return error && <p

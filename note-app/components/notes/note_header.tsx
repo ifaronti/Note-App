@@ -18,7 +18,7 @@ export default function Note_Header({ current, handleChange }: props) {
                 </span>
                 <input
                     type="text"
-                    value={String(current?.tags)}
+                    value={String(current?.tags)||''}
                     name="tags"
                     onChange={handleChange}
                     placeholder="Add tags separated by commas (e.g. Work, Planning)"

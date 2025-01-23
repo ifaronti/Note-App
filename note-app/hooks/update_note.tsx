@@ -6,7 +6,7 @@ export async function update_note(body:opt_note, token: string) {
     let response
     try {
         const { data } = await axios.patch(
-            `${process.env.APP_URL}/notes/${String(body.id)}`,
+            `${process.env.APP_URL}/notes/note/${body.id}`,
             body,
             { headers: { Authorization: `Bearer ${token}` } }
         )

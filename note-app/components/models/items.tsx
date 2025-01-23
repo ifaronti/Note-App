@@ -4,7 +4,7 @@ export type note = {
     content: string
     last_edited: string
     is_archived: boolean
-    id?:string
+    id?:number
 }
 export type opt_note = {
     title?: string
@@ -12,5 +12,5 @@ export type opt_note = {
     content?: string
     last_edited?: string
     is_archived?: boolean
-    id?:string
+    id:number
 }

@@ -1,9 +1,15 @@
-import { inputProps } from "@/components/models/props"
+import { inputEvent } from "@/components/models/props"
 import Password_Toggle from "../password_toggle"
 import { useState } from "react"
 import { presets } from "@/components/text"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+
+type inputProps = {
+    handleBlur?: (e: inputEvent) => void,
+    name?: string
+    label?: string
+}
 
 export default function Password_Input({name, label, handleBlur, }:inputProps){
     const [show_pass, setShow_Pass] = useState(false)

@@ -1,6 +1,10 @@
-import { auth_hero } from "../models/props";
 import { logo } from "../svg_assets";
 import { presets } from "../text";
+
+type auth_hero = {
+    header: string
+    description:string
+}
 
 export default function Auth_Hero({header, description}:auth_hero) {
     

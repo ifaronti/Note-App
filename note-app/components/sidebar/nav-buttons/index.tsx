@@ -1,4 +1,4 @@
-import { chevy_right } from "../svg_assets";
+import { chevy_right } from "../../svg_assets";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function Nav_Buttons() {

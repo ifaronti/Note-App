@@ -1,8 +1,13 @@
 import Note_Tag from "./note_tags";
 import { presets } from "../text";
-import { note_props } from "../models/props";
 import { useSearchParams } from "next/navigation";
 import { format_date } from "./format_date";
+import { note } from "../models/items";
+
+type note_props = {
+    note: note
+    current_note: (note:note)=>void
+}
 
 export default function Note({ note, current_note }: note_props) {
     const params = useSearchParams()

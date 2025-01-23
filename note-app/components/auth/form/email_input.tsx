@@ -1,4 +1,10 @@
-import { inputProps } from "@/components/models/props"
+import { inputEvent } from "@/components/models/props"
+
+type inputProps = {
+    handleBlur?: (e: inputEvent) => void,
+    name?: string
+    label?: string
+}
 
 export default function Email_Input({handleBlur}:inputProps) {
     return (
