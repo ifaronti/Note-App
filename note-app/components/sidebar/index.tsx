@@ -21,7 +21,7 @@ export default function Sidebar() {
     const current_tag = useSearchParams().get('tag')
     const { data, error } = useSWR('tags', tags_fetcher, options)   
     
-    const all_tags= data?.tags.map((item, index) => {
+    const all_tags= data?.tags?.map((item, index) => {
         if (error) { return <p key={index+1}>An error has occured</p> }
         if (!data){return <p key={index+1}>Loading...</p>}
         return (
