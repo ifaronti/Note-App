@@ -5,20 +5,25 @@ import { useSearchParams } from "next/navigation";
 import { presets } from "../text";
 import One_Tag from "./one_tag";
 import useSWR from "swr";
-import { GetTags } from "@/hooks/get_tags";
+import { get_tags } from "@/hooks/get_tags";
 
 const tags_fetcher = async () => {
-    return await GetTags(String(localStorage.getItem('token')))
+    return await get_tags(String(localStorage.getItem('token')))
+}
+
+export const options = {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
 }
 
 export default function Sidebar() {
     const current_tag = useSearchParams().get('tag')
-    const { data, error } = useSWR('tags', tags_fetcher)   
+    const { data, error } = useSWR('tags', tags_fetcher, options)   
     
-    //@ts-expect-error
-    const all_tags: string[] = data?.tags.map((item, index) => {
-        if (error) { return <p>An error has occured</p> }
-        if (!data){return <p>Loading...</p>}
+    const all_tags= data?.tags.map((item, index) => {
+        if (error) { return <p key={index+1}>An error has occured</p> }
+        if (!data){return <p key={index+1}>Loading...</p>}
         return (
             <div key={index+1} className={`w-full xl:w-[240px] items-center justify-center px-3 rounded-lg h-10 flex flex-col ${current_tag === item? 'bg-auth_page':''}`}>
                 <One_Tag tag_name={item} />

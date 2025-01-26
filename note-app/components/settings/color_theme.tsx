@@ -8,6 +8,7 @@ import Apply_Changes from "./apply_changesBTN";
 
 export default function Color_Theme() {
     const [color, setColor] = useState('')
+    const [theme, setTheme] = useState('')
     const pathName = usePathname()
     const router = useRouter()
     const params = useSearchParams()
@@ -16,11 +17,23 @@ export default function Color_Theme() {
     function apply_changes() {
         search_params.set('color', color)
         router.replace(`${pathName}?${search_params}`)
+        document.documentElement.setAttribute("data-theme", color === 'system'?theme:color)
     }
 
     function handleChange(e: inputEvent) {
         const { value } = e.target
+        if (value == 'system') {
+            if (window.matchMedia(('prefers-color-scheme: light')).matches) {
+                setTheme('light')
+                setColor(value)
+                return 
+            }
+            setTheme('dark')
+            setColor(value)
+            return
+        }
         setColor(value)
+        return 
     }
 
     return (

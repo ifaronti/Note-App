@@ -37,7 +37,7 @@ export default function NavBar() {
                         type="text"
                         name="search"
                         placeholder="Search by title, content or tags..."
-                        className={`border-none relative w-full active:text-text9 ${presets.preset5} outline-none focus:text-text9 text-text5 focus:border-none focus:outline-none`}
+                        className={`border-none bg-inherit relative w-full active:text-text9 ${presets.preset5} outline-none focus:text-text9 text-text5 focus:border-none focus:outline-none`}
                     />
                 </form>
 

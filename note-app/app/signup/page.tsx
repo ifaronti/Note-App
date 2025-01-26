@@ -12,7 +12,7 @@ export default async function Page() {
                 description="Please login to continue"
             />
             <Form btn_text="Signup"/>
-            <Auth_Links />
+            <Auth_Links oauth_link={String(process.env.oauth_link)} />
         </section>
     )
 }

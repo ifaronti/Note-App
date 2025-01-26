@@ -1,4 +1,3 @@
-import { note_tags_props } from "../models/props";
 import { presets } from "../text";
 
 export default function Note_Tag({tags_arr}:{tags_arr:string[]}) {
@@ -8,10 +7,10 @@ export default function Note_Tag({tags_arr}:{tags_arr:string[]}) {
             tags_arr.map((item, index) => {
                 return (
                     <span
-                        className={`${presets.preset6} w-fit px-2 py-1 bg-[#E0E4EA] rounded-md`}
+                        className={`${presets.preset6} w-fit px-2 text-text9 py-1 bg-text2 rounded-md`}
                         key={index + 1}
                     >
-                        <p >{item}</p>
+                        <p>{item}</p>
                     </span>
                 )
             })

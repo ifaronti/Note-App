@@ -8,7 +8,7 @@ type toggle_props = {
 
 export default function Password_Toggle({show_pass, toggle}:toggle_props) {
     return (
-            <button type="submit"
+            <button type="button"
                 onClick={toggle}
                 className="bg-none, absolute border-none">{show_pass ? hide_icon : show_icon}
             </button>

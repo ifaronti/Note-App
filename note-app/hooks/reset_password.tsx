@@ -2,10 +2,10 @@
 
 import axios from "axios"
 
-export async function useResePassword(body:{password:string}, token:string) {
+export async function Re_Password(body:{password:string}, token:string) {
     const url = process.env.APP_URL
     
-    const { data } = await axios.patch(`${url}/auth/login/reset`, body,{headers:{Authorization:`Bearer ${token}`}})    
+    const {data} = await axios.patch(`${url}/auth/login/reset`, body,{headers:{Authorization:`Bearer ${token}`}})    
     
     return data
 }

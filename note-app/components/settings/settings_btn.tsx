@@ -20,8 +20,13 @@ export default function Settings_BTN({ icon, name, text }: props) {
         router.replace(`${pathName}?${searchParams}`)
     }
 
+    function logout() {
+        localStorage.clear()
+        router.push(`/login`)
+    }
+
     return (
-        <button onClick={change_setting} className={`flex px-3 w-full h-[36px] ${current === name? "bg-auth_page text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
+        <button onClick={text === 'Logout'? logout:change_setting} className={`flex px-3 w-full h-[36px] ${current === name? "bg-auth_page text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
             <span className="flex items-center gap-2">
                 {icon}
                 <span>{text}</span>

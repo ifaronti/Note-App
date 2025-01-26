@@ -8,6 +8,7 @@ import Delete_Or_Archive from "./archive_delete"
 import Notes_Sidebar from "./notes_sidebar"
 import { get_notes } from "@/hooks/get_notes"
 import useSWR from "swr"
+import { options } from "../sidebar"
 
 const notes_fetcher = async () => {
     return await get_notes(String(localStorage.getItem('token')))
@@ -21,9 +22,9 @@ export default function Notes_Panel() {
     const router = useRouter()
     const pathName = usePathname()
 
-    const { data: notes, error } = useSWR('server-notes', notes_fetcher)
+    const { data: notes, error, isLoading } = useSWR('server-notes', notes_fetcher, options)
     
-    if (!notes) { return <p>Loading</p> }
+    if (isLoading) { return <p>Loading</p> }
     if(error){return <p>An error has occured</p>}
 
     const set_current = (note:note) => {
@@ -58,7 +59,7 @@ export default function Notes_Panel() {
         setPatchLoad({...patchLoad, [name]:value})
     }
         
-    const render_notes = notes.data?.map((item, index) => {
+    const render_notes = notes?.data?.map((item, index) => {
         return (
             item.is_archived ? '' :
             (
@@ -71,7 +72,7 @@ export default function Notes_Panel() {
         
     })
 
-    const render_archived = notes.data?.map((item, index) => {
+    const render_archived = notes?.data?.map((item, index) => {
         return !item.is_archived? '':
             <div key={index+1}>
                 <Note note={item} current_note={()=>set_current(item)} />
