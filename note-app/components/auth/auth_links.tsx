@@ -10,10 +10,14 @@ export default function Auth_Links({oauth_link}:{oauth_link:string}) {
     return (
         <div className="w-full flex flex-col gap-4 justify-center items-center">
             <p className={`${presets.preset5} text-text6`}>Or login with:</p>
-            <div className="w-full flex gap-3 items-center justify-center h-[48px] rounded-lg border border-[#E0E4EA]">
-                <div>{google_logo}</div>
-                <Link href={oauth_link} className={`text-text9 cursor-pointer font-medium text-[1rem]`}>Github</Link>
-            </div>
+                <Link
+                    href={oauth_link}
+                    className={`text-text9 h-[48px] rounded-lg border border-[#E0E4EA] w-full flex gap-3 items-center justify-center cursor-pointer font-medium text-[1rem]`}
+                >
+                    <div>{google_logo}</div>
+                    Github
+                </Link>
+
             <hr className="w-full h-[1px] bg-[#E0E4EA]"/>
             <div className={`${presets.preset5}`}>
                 <Link className="flex gap-1" href={pathName.includes("login") ? "/signup" : "/login"}>
