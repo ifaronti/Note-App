@@ -1,24 +1,22 @@
 'use client'
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+
 import { presets } from "../text";
 import { search_icon, setting_icon } from "../svg_assets";
-import { formEvent} from "../models/props";
+import { formEvent } from "../models/props";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function NavBar() {
-    const pathName = usePathname()
-    const params = useSearchParams()
-    const search_params = new URLSearchParams(params)
-    const pane = search_params.get("pane")
-    const router = useRouter()
+    const {set, get} = useNavigation()
+    const pane = get("pane")
+
 
     function change_pane(current_pane: string) {
-        search_params.set("pane", current_pane)
-        return router.replace(`${pathName}?${search_params}`)
+        set("pane", current_pane)
     }
 
     function handleSubmit(e: formEvent) {
         const formData = new FormData(e.currentTarget)
-        search_params.set('search', String(formData.get("search")))
+        set('search', String(formData.get("search")))
     }
 
     return (

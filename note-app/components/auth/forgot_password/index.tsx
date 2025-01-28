@@ -6,21 +6,18 @@ import {useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import Form_Btn from "../form/form_btn";
 import { useResetLink } from "@/hooks/reset_link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import useNavigation from "@/hooks/useNavigation";
 
 
 export default function Forgot_Password() {
-    const [status, setStatus] = useState(false)
-    const params = new URLSearchParams(useSearchParams())
-    const status_message = params.get('toast')
-    const router = useRouter()
-    const pathname = usePathname()
+    const {set, get, push} = useNavigation()
+    const [showStatus, setShowStatus] = useState(false)
+    const status_message = get('toast')
 
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.patternMismatch) {
-            params.set('toast', 'Enter a valid email')
-            router.replace(`${pathname}?${params}`)
-            setStatus(true)
+            set('toast', 'Enter a valid email')
+            setShowStatus(true)
         }
     }
 
@@ -31,18 +28,16 @@ export default function Forgot_Password() {
         try {
             const response = await useResetLink(body)
             if (response.success) {
-                params.set('toast', 'Link sent to email')
-                router.replace(`${pathname}?${params}`)
-                setStatus(true)
+                set('toast', 'Link sent to email')
+                setShowStatus(true)
                 setTimeout(() => {
-                    router.push('/login')
+                    push('/login')
                 },2000)
             }
         }
         catch (err: any) {
-            params.set('toast', err.message)
-            router.replace(`${pathname}?${params}`)
-            setStatus(true)
+            set('toast', err.message)
+            setShowStatus(true)
         }
     }
 
@@ -57,7 +52,7 @@ export default function Forgot_Password() {
                     handleBlur={handleBlur}
                 />
                 <Form_Btn btn_text="Send Reset Link" />
-                <Form_Errors text={String(status_message)} error = {status} />
+                <Form_Errors text={String(status_message)} error = {showStatus} />
             </form>
         </section>
     )

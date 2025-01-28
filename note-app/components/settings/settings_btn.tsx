@@ -1,6 +1,6 @@
 import { chevy_right } from "../svg_assets"
 import React from "react"
-import { useSearchParams, useRouter, usePathname} from "next/navigation"
+import useNavigation from "@/hooks/useNavigation"
 
 type props = {
     icon: any
@@ -9,20 +9,17 @@ type props = {
 }
 
 export default function Settings_BTN({ icon, name, text }: props) {
-    const pathName = usePathname()
-    const params = useSearchParams()
-    const searchParams = new URLSearchParams(params)
-    const current = searchParams.get('setting')
-    const router = useRouter()
+    const {set, get, push} = useNavigation()
+    const current = get('setting')
+  
 
     function change_setting() {
-        searchParams.set('setting', name)
-        router.replace(`${pathName}?${searchParams}`)
+        set('setting', name)
     }
 
     function logout() {
         localStorage.clear()
-        router.push(`/login`)
+        push(`/login`)
     }
 
     return (

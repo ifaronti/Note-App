@@ -2,21 +2,17 @@ import Theme_Input from "./themes_input";
 import { light_mode_icon, dark_mode_icon, system_mode_icon} from "../svg_assets";
 import { presets } from "../text";
 import { useState } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import { inputEvent } from "../models/props";
 import Apply_Changes from "./apply_changesBTN";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function Color_Theme() {
     const [color, setColor] = useState('')
     const [theme, setTheme] = useState('')
-    const pathName = usePathname()
-    const router = useRouter()
-    const params = useSearchParams()
-    const search_params = new URLSearchParams(params)
+    const {set} = useNavigation()
 
     function apply_changes() {
-        search_params.set('color', color)
-        router.replace(`${pathName}?${search_params}`)
+        set('color', color)
         document.documentElement.setAttribute("data-theme", color === 'system'?theme:color)
     }
 

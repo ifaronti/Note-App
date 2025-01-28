@@ -2,23 +2,16 @@ import Theme_Input from "./themes_input";
 import { serif_icon, san_serif_icon, monospace_icon} from "../svg_assets";
 import { presets } from "../text";
 import { useState } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import { inputEvent } from "../models/props";
 import Apply_Changes from "./apply_changesBTN";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function Font_Theme() {
+    const {set} = useNavigation()
     const [font, setFont] = useState('')
-    const pathName = usePathname()
-    const router = useRouter()
-    const params = useSearchParams()
-    const search_params = new URLSearchParams(params)
-
-    console.log(font);
-    
 
     function apply_changes() {
-        search_params.set('font', font)
-        router.replace(`${pathName}?${search_params}`)
+        set('font', font)
     }
 
     function handleChange(e: inputEvent) {

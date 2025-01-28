@@ -1,7 +1,7 @@
 import { note } from "../models/items";
-import { useSearchParams } from "next/navigation";
 import { cross_icon } from "../svg_assets";
 import { presets } from "../text";
+import useNavigation from "@/hooks/useNavigation";
 
 interface props {
     render_archived: note[]
@@ -9,12 +9,11 @@ interface props {
     create_note:()=>void
 }
 
-export default function Notes_Sidebar({render_archived, create_note, render_notes}:props) {
-    const params = useSearchParams()
-    const pane = String(params.get('pane'))
-    const title = params.get('title')
+export default function Notes_Sidebar({ render_archived, create_note, render_notes }: props) {
+    const {get} = useNavigation()
+    const pane = String(get('pane'))
+    const title = get('title')
     
-
     function select_display() {
         let display
         switch (pane) {
@@ -30,7 +29,6 @@ export default function Notes_Sidebar({render_archived, create_note, render_note
         return display
     }
 
-    const display = select_display()
     return (
         <div className="pt-5 flex-shrink-0 flex-grow-0 gap-4 h-full overflow-y-scroll no-scrollbar flex flex-col xl:border-r-[1px] xl:border-r-[#E0E4EA] w-full xl:w-[290px] px-8 xl:px-[unset] xl:pl-8 xl:pr-4">
             <button disabled={title === 'Untitled Note'? true:false} onClick={create_note} className={`border-none flex-shrink-0 ${presets.preset4} bg-[#335CFF] h-16 w-16 text-white xl:w-[242px] rounded-lg xl:h-[41px]`}>
@@ -49,7 +47,7 @@ export default function Notes_Sidebar({render_archived, create_note, render_note
             }
             <div className="w-full h-full">
                 {/*//@ts-expect-error */}
-                {display}
+                {select_display()}
             </div>
         </div>
     )

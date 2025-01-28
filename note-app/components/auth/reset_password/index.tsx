@@ -6,20 +6,17 @@ import { useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import { password_reset } from "@/hooks/reset_password";
 import Form_Btn from "../form/form_btn";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function Reset_Password() {
-    const [error, setError] = useState(false)
+    const {set, push, get, URLOps} = useNavigation()
+    const [showStatus, setShowStatus] = useState(false)
     const [message, setMessage] = useState('')
-    const pathname = usePathname()
-    const router = useRouter()
-    const params = new URLSearchParams(useSearchParams())
-    const token = String(params.get('token'))
 
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.tooShort) {
             setMessage('Password must be atleast 8 characters long')
-            return setError(true)
+            return setShowStatus(true)
         }
     }
 
@@ -29,27 +26,26 @@ export default function Reset_Password() {
         const password = String(formData.get('password'))
         const confirm = String(formData.get('confirm'))
     
-        if (!password || password !== confirm || error) {
+        if (!password || password !== confirm) {
             setMessage('Passwords must match to avoid errors')
-            setError(true)
+            setShowStatus(true)
             return
         }
         try {
-            const response = await password_reset({ password: password }, token)
+            const response = await password_reset({ password: password }, String(get('token')))
             if (response.success) {
-                params.delete('token')
-                params.set('toast', 'Password reset was successful')
+                URLOps.delete('token')
+                set('toast', 'Password reset was successful')
                 setMessage('Password reset was successful')
-                setError(true)
-                router.replace(`${pathname}?${params}`)
+                setShowStatus(true)
+
                 setTimeout(() => {
-                    router.push('/login')
+                    push('/login')
                 }, 2000)
             }
         }
         catch (err:any) {
-            params.set('toast', 'An unknown error has occured')
-            router.replace(`${pathname}?${params}`)
+            set('toast', 'An unknown error has occured')
         }
     }
     
@@ -65,7 +61,7 @@ export default function Reset_Password() {
                 <Password_Input handleBlur={handleBlur} label="Confirm Password" name="confirm" />
 
                 <Form_Btn btn_text="Reset Password" />
-                <Form_Errors text={message} error = {error} />
+                <Form_Errors text={message} error = {showStatus} />
             </form>
         </section>
     )

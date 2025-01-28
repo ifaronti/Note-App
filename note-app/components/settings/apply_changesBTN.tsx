@@ -1,4 +1,3 @@
-import { StringifyOptions } from "querystring"
 import { presets } from "../text"
 
 export default function Apply_Changes({ apply_changes, text }:

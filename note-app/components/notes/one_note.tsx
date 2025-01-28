@@ -1,9 +1,8 @@
 import Note_Tag from "./note_tags";
 import { presets } from "../text";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { format_date } from "./format_date";
 import { note } from "../models/items";
-import { useEffect, useState } from "react";
+import useNavigation from "@/hooks/useNavigation";
 
 type note_props = {
     note: note
@@ -11,13 +10,9 @@ type note_props = {
 }
 
 export default function Note({ note, current_note }: note_props) {
-    const [theme, setTheme] = useState('')
-    const params = useSearchParams()
-    const router = useRouter()
-    const pathname = usePathname()
-    const searchParam = new URLSearchParams(params)
-    const title = searchParam.get("title")
-    const color = String(searchParam.get("color")) || 'light'
+    const {get} = useNavigation()
+    const title = get("title")
+    const color = get("color") || 'light'
 
 
     function bg() {

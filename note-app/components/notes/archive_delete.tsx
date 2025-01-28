@@ -1,18 +1,15 @@
 import { presets } from "../text"
 import { archive_icon, delete_icon } from "../svg_assets"
-import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import { restore_icon } from "../svg_assets"
 import { delete_note } from "@/hooks/delete_note"
 import { note } from "../models/items"
 import { mutate } from "swr"
 import { update_note } from "@/hooks/update_note"
+import useNavigation from "@/hooks/useNavigation"
 
-export default function Delete_Or_Archive({current}:{current:note}) {
-    const params = useSearchParams()
-    const searchParams = new URLSearchParams(params)
-    const pane = searchParams.get('pane')
-    const pathName = usePathname()
-    const router = useRouter()
+export default function Delete_Or_Archive({ current }: { current: note }) {
+    const {set, get} = useNavigation()
+    const pane = get('pane')
 
     async function remove_note() {
         const data = await delete_note(Number(current.id), String(localStorage.getItem('token')))
@@ -21,8 +18,7 @@ export default function Delete_Or_Archive({current}:{current:note}) {
                 await mutate('tags')
             }
             await mutate('server-notes')
-            searchParams.set('toast', data.message)
-            router.replace(`${pathName}?${searchParams}`)
+            set('toast', data.message)
         }
     }
 
@@ -32,8 +28,7 @@ export default function Delete_Or_Archive({current}:{current:note}) {
         const data = await update_note(payload, String(localStorage.getItem('token')))
             
         if (data.success) {
-            searchParams.set('toast', data.message)
-            router.replace(`${pathName}?${searchParams}`)
+            set('toast', data.message)
             await mutate('server-notes')
         }
             return

@@ -1,18 +1,16 @@
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import useNavigation from "@/hooks/useNavigation";
 
 export function icon_theme(current:string, theme:string, item:string) {
     return current == item ? '#335CFF' : theme == 'dark'? '#fff':'#0E121B'
 }
 
 export default function Nav_Buttons() {
-    const params = useSearchParams()
-    const searchParams = new URLSearchParams(params)
-    const current_pane = String(searchParams.get("pane"))
+    const {set, get} = useNavigation()
+    const current_pane = String(get("pane"))
     const system_theme = window.matchMedia('preferred-color-scheme:light').matches ? 'light' : 'dark'
-    const color = String(searchParams.get('color'))
+    const color = String(get('color'))
     const theme = color === 'system'? system_theme:color
-    const router = useRouter()
-    const pathName = usePathname()
+
     const chevy_home = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-text9" fill="none" viewBox="0 0 24 24"><path fill={icon_theme(current_pane, theme, 'Home')} fillRule="evenodd" d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" /></svg>
     const chevy_Archived = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-text9" fill="none" viewBox="0 0 24 24"><path fill={icon_theme(current_pane, theme, 'Archived')} fillRule="evenodd" d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" /></svg>
 
@@ -20,8 +18,7 @@ export default function Nav_Buttons() {
     const archived_svg = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"  viewBox="0 0 24 24"><path stroke={icon_theme(current_pane, theme, 'Archived')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 7.782v8.435C21 19.165 18.919 21 15.974 21H8.026C5.081 21 3 19.165 3 16.216V7.782C3 4.834 5.081 3 8.026 3h7.948C18.919 3 21 4.843 21 7.782Z" /><path stroke={icon_theme(current_pane, theme, 'Archived')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m15 14-3.002 3L9 14M11.998 17v-7M20.934 7H3.059" /></svg>
 
     function change_pane(current_pane: string) {
-        searchParams.set("pane", current_pane)
-        return router.replace(`${pathName}?${searchParams}`)
+        set("pane", current_pane)
     }
 
     return (

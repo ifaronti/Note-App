@@ -1,29 +1,28 @@
 import Password_Input from "../auth/form/password_input"
 import { presets } from "../text"
-import { Re_Password } from "@/hooks/reset_password"
-import { useSearchParams, usePathname, useRouter } from "next/navigation"
+import { password_reset } from "@/hooks/reset_password"
 import { formEvent } from "../models/props"
+import useNavigation from "@/hooks/useNavigation"
+import Form_Errors from "../auth/form/errors"
+import { useState } from "react"
 
 export default function Change_Password() {
-    const router = useRouter()
-    const queries = useSearchParams()
-    const params = new URLSearchParams(queries)
-    const pathname = usePathname()
+    const { set, get } = useNavigation()
+    const toast = get('toast')
+    const [showStatus, setShowStatus] = useState(false)
 
     async function reset_pass(e: formEvent) {
         const formData = new FormData(e.currentTarget)
         const payload = { password: String(formData.get('new')) }
-        console.log(payload);
         
         try {
-            const data = await Re_Password(payload, String(localStorage.getItem('token')))
-            
-            params.set('toast', data.message)
-            router.replace(`${pathname}?${params}`)
+            const data = await password_reset(payload, String(localStorage.getItem('token')))
+            set('toast', data.message)
+            setShowStatus(true)
         }
         catch (err: any) {
-            params.set('toast', err.message)
-            // router.replace(`${pathname}?${params}`)
+            set('toast', err.message)
+            setShowStatus(true)
         }
     }
 
@@ -43,6 +42,7 @@ export default function Change_Password() {
                 }
             >Save Password
             </button>
+            {toast && <Form_Errors error={showStatus} text={toast} />}
         </form>
     )
 }

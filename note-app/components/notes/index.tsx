@@ -1,4 +1,3 @@
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import Note from "./one_note"
 import {useState } from "react"
 import { note } from "../models/items"
@@ -9,18 +8,17 @@ import Notes_Sidebar from "./notes_sidebar"
 import { get_notes } from "@/hooks/get_notes"
 import useSWR from "swr"
 import { options } from "../sidebar"
+import useNavigation from "@/hooks/useNavigation"
 
 const notes_fetcher = async () => {
     return await get_notes(String(localStorage.getItem('token')))
 }
 
 export default function Notes_Panel() {
+    const {set, get} = useNavigation()
     //@ts-expect-error
     const [current, setCurrent] = useState<note>({title:'select a note', content:'', tags:['select a note'], last_edited:'select a note'})
     const [patchLoad, setPatchLoad] = useState({})
-    const searchParams = new URLSearchParams(useSearchParams())
-    const router = useRouter()
-    const pathName = usePathname()
 
     const { data: notes, error, isLoading } = useSWR('server-notes', notes_fetcher, options)
     
@@ -29,23 +27,20 @@ export default function Notes_Panel() {
 
     const set_current = (note:note) => {
         setCurrent(note)
-        searchParams.set("title", note.title)
-        router.replace(`${pathName}?${searchParams}`)
+        set("title", note.title)
     }
 
     function new_note() {
         const empty_note ={title: 'Untitled Note', tags: [], content: '', last_edited: 'Not yet saved', is_archived: false}
         setCurrent(empty_note)
         // setNotes(prev=>[{...empty_note, last_edited:''}, ...prev])
-        searchParams.set('title', empty_note.title)
-        router.replace(`${pathName}?${searchParams}`)
+        set('title', empty_note.title)
     }
 
     function cancel() {
         //@ts-expect-error
         setCurrent(notes.data[0])
-        searchParams.set('title', String(notes?.data[0].title))
-        router.replace(`${pathName}?${searchParams}`)
+        set('title', String(notes?.data[0].title))
     }
 
     const handleChange = (e: any) => {

@@ -3,9 +3,9 @@ import { presets } from "../text";
 import HR_LINE from "../hr_line";
 import Note_Header from "./note_header";
 import { new_note } from "@/hooks/create_note";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { update_note } from "@/hooks/update_note";
 import { mutate } from "swr";
+import useNavigation from "@/hooks/useNavigation";
 
 type props = {
     handleChange: (e:any)=>void
@@ -15,16 +15,13 @@ type props = {
 }
 
 export default function Full_Note({ current, handleChange, cancel, update_details }: props) {
-    const pathName = usePathname()
-    const searchParams = new URLSearchParams(useSearchParams())
-    const router = useRouter()
-    const title = searchParams.get('title')
+    const {set, get} = useNavigation()
+    const title = get('title')
     
     async function create_note() {
         const payload = { tags: current.tags, content: current.content, title: current.title }
         const data = await new_note(payload, String(localStorage.getItem('token')))
-        searchParams.set('toast', data.message)
-        router.replace(`${pathName}?${searchParams}`)
+        set('toast', data.message)
         await mutate('server-notes')
         await mutate('tags')
         return
@@ -32,8 +29,7 @@ export default function Full_Note({ current, handleChange, cancel, update_detail
 
     async function patch_note() {
         const data = await update_note(update_details, String(localStorage.getItem('token')))
-        searchParams.set('toast', data.message)
-        router.replace(`${pathName}?${searchParams}`)
+        set('toast', data.message)
         await mutate('server-notes')
         if (update_details.tags) {
             await mutate('tags')
