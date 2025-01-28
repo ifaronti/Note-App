@@ -9,7 +9,7 @@ import Form_Btn from "../form/form_btn";
 import useNavigation from "@/hooks/useNavigation";
 
 export default function Reset_Password() {
-    const {set, push, get, URLOps} = useNavigation()
+    const {set, push, get, del} = useNavigation()
     const [showStatus, setShowStatus] = useState(false)
     const [message, setMessage] = useState('')
 
@@ -34,7 +34,7 @@ export default function Reset_Password() {
         try {
             const response = await password_reset({ password: password }, String(get('token')))
             if (response.success) {
-                URLOps.delete('token')
+                del('token')
                 set('toast', 'Password reset was successful')
                 setMessage('Password reset was successful')
                 setShowStatus(true)

@@ -5,13 +5,28 @@ import NavBar from "../nav";
 import Settings from "../settings";
 import { useSearchParams } from "next/navigation";
 import { presets } from "../text";
+import Modal from "../modal";
+import { useEffect, useState } from "react";
 
 export default function Views() {
-    const current = useSearchParams().get('pane')
+    const [theme, setTheme] = useState('')
+    const current_view = useSearchParams().get('pane')
+
+    useEffect(() => {
+        const current = document.documentElement.getAttribute('data-theme')
+        if (current == localStorage.getItem('color')) {
+            return
+        }
+        else {
+            document.documentElement.setAttribute(
+                "data-theme", String(localStorage.getItem('color'))
+            )
+        }
+    },[])
 
     function panel() {
         let display
-        switch (current) {
+        switch (current_view) {
             case 'Settings':
                 display = <Settings />
                 break
@@ -29,6 +44,7 @@ export default function Views() {
     
     return (
         <section className="h-full relative w-full flex">
+            <Modal/>
             <Sidebar />
             <div className="w-full flex flex-col relative h-full">
                 <NavBar/>

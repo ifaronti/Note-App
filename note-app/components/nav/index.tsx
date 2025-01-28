@@ -20,12 +20,12 @@ export default function NavBar() {
     }
 
     return (
-        <nav className="h-fit px-8 xl:h-[81px] justify-between border-b-[1px] border-b-[#E0E4EA] flex xl:items-center">
+        <nav className="h-fit px-8 xl:h-[81px] justify-between border-b-[1px] border-b-borders flex xl:items-center">
             <h1 className={`${presets.preset1} text-text9`}>
                 {pane === "Home"? "All Notes":pane}
             </h1>
             <div className="flex items-center gap-4">
-                <form onSubmit={handleSubmit} className="h-11 w-[300px] flex items-center gap-2 rounded-lg px-4 border border-[#CACFD8]">
+                <form onSubmit={handleSubmit} className="h-11 w-[300px] flex items-center gap-2 rounded-lg px-4 border border-borders">
                     
                     <button type="button" className="bg-none border-none">
                         {search_icon}

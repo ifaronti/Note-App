@@ -8,28 +8,32 @@ import useNavigation from "@/hooks/useNavigation";
 
 export default function Color_Theme() {
     const [color, setColor] = useState('')
-    const [theme, setTheme] = useState('')
-    const {set} = useNavigation()
+    const { set, get } = useNavigation()
+    const color_setting = get('color')
 
     function apply_changes() {
+        if (!color) {
+            return
+        }
+
+        let local_color = color
+        if (color == 'system') {
+            if (window.matchMedia(('prefers-color-scheme: light')).matches) {
+                local_color = 'light'
+            }
+            else {
+                local_color = 'dark'
+            }
+        }
         set('color', color)
-        document.documentElement.setAttribute("data-theme", color === 'system'?theme:color)
+        localStorage.setItem('color', local_color || 'light')
+        document.documentElement.setAttribute(
+            "data-theme", local_color || 'light')
     }
 
     function handleChange(e: inputEvent) {
         const { value } = e.target
-        if (value == 'system') {
-            if (window.matchMedia(('prefers-color-scheme: light')).matches) {
-                setTheme('light')
-                setColor(value)
-                return 
-            }
-            setTheme('dark')
-            setColor(value)
-            return
-        }
         setColor(value)
-        return 
     }
 
     return (
@@ -41,15 +45,15 @@ export default function Color_Theme() {
             <div className="flex flex-col gap-4">
                 <Theme_Input handleChange={handleChange} mode="Light Mode"
                     icon={light_mode_icon} value="light" name="color"
-                    text="Pick a clean and classic light theme." current={color}
+                    text="Pick a clean and classic light theme." current={String(color_setting)}
                 />
                 <Theme_Input handleChange={handleChange} mode="Dark Mode"
                     icon={dark_mode_icon} value="dark" name="color"
-                    text="Select a sleek and modern dark theme." current={color}
+                    text="Select a sleek and modern dark theme." current={String(color_setting)}
                 />
                 <Theme_Input handleChange={handleChange} mode="System"
                     icon={system_mode_icon} value="system" name="color"
-                    text="Adapt to your device's theme." current={color}
+                    text="Adapt to your device's theme." current={String(color_setting)}
                 />
             </div>
             <div className="xl:w-[528px] w-full flex justify-end">

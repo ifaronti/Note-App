@@ -18,10 +18,15 @@ export default function useNavigation() {
         router.push(path)
     }
 
+    function del_query(query:string) {
+        params.delete(query)
+        router.replace(`${pathname}?${params}`)
+    }
+
     return {
         set: set_replace,
         get: get_query,
         push: nav_to,
-        URLOps:params
+        del:del_query,
     }
 }

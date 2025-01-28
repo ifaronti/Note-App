@@ -10,17 +10,36 @@ import useSWR from "swr"
 import { options } from "../sidebar"
 import useNavigation from "@/hooks/useNavigation"
 
-const notes_fetcher = async () => {
-    return await get_notes(String(localStorage.getItem('token')))
+const notes_fetcher = async (parameter:string) => {
+    return await get_notes(String(localStorage.getItem('token')), parameter)
 }
 
 export default function Notes_Panel() {
-    const {set, get} = useNavigation()
+    const { set, get } = useNavigation()
+    const tag = get('tag')
+    const param = get('param')
     //@ts-expect-error
     const [current, setCurrent] = useState<note>({title:'select a note', content:'', tags:['select a note'], last_edited:'select a note'})
     const [patchLoad, setPatchLoad] = useState({})
 
-    const { data: notes, error, isLoading } = useSWR('server-notes', notes_fetcher, options)
+    function parse_query() {
+        let query ={}
+
+        if (tag) {
+            //@ts-expect-error
+            query.tag = tag
+        }
+        if (param) {
+            //@ts-expect-error
+            query.parameter = param
+        }
+        if (!tag && !param) {
+            return 
+        }
+        return String(new URLSearchParams(query))
+    }
+
+    const { data: notes, error, isLoading } = useSWR([parse_query()], notes_fetcher, options)
     
     if (isLoading) { return <p>Loading</p> }
     if(error){return <p>An error has occured</p>}
@@ -58,9 +77,9 @@ export default function Notes_Panel() {
         return (
             item.is_archived ? '' :
             (
-                <div key={index+1} className={`${index+1 === notes.data.length? 'mb-10':''}`}>
-                    <Note note={item} current_note={()=>set_current(item)} />
+                    <div key={index + 1} className={`${index + 1 === notes.data.length ? 'mb-10' : ''}`}>
                     {index+1 === notes.data.length || current?.title === item.title? "": <HR_LINE/>}
+                    <Note note={item} current_note={()=>set_current(item)} />
                 </div>
             )
         )

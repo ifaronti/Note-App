@@ -10,9 +10,10 @@ body{
   --text-950:#0E121B;
   --text-800:#232530;
   --tag_edited_date: #2B303B;
+  --borders:#E0E4EA;
   --text-700:#2B303B;
   --text-600:#525866;
-  --text-500:#717784;
+  --text-500:#F3F5F8;
   --text-400:#99A0AE;
   --background: #E0E4EA;
   --auth-page:#F3F5F8;
@@ -20,7 +21,9 @@ body{
   --input-bg:#F3F5F8;
   --text-200:#E0E4EA;
   --text-300:#CACFD8;
-  --borders:#E0E4EA;
+  --dialog:#fff;
+  --dialog-text:#2B303B;
+  --cancel:#F3F5F8;
 }
 
 [data-theme='dark'] {
@@ -34,9 +37,12 @@ body{
   --text-500:#717784;
   --text-400:#99A0AE;
   --background: #232530;
+  --dialog:#2B303B;
   --auth-page:#2B303B;
-  --borders:#232530;
+  --borders:#525866;
   --global-bak:black;
+  --dialog-text:#E0E4EA;
+  --cancel:#2B303B;
 }
 
 .no-scrollbar::-webkit-scrollbar {

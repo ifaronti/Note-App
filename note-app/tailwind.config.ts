@@ -22,7 +22,10 @@ export default {
         bak_g: "var(--background)",
         auth_page: "var(--auth-page)",
         page: "var(--global-bak)",
-        borders:"var(--borders)"
+        borders:"var(--borders)",
+        dialog:"var(--dialog)",
+        dialog_text:"var(--dialog-text)",
+        cancel:"var(--cancel)"
       },
     },
   },

@@ -22,7 +22,7 @@ export default function Note_Header({ current, handleChange }: props) {
                     name="tags"
                     onChange={handleChange}
                     placeholder="Add tags separated by commas (e.g. Work, Planning)"
-                    className={`w-full h-[18px] ${presets.preset5} text-text9 outline-none`}
+                    className={`w-full h-[18px] ${presets.preset5} text-text9 bg-inherit outline-none`}
                 />
             </div>
             <div className={` flex-shrink-0 w-full h-[26px] ${presets.preset5} text-t_e_d flex gap-2 items-center justify-start`}>
