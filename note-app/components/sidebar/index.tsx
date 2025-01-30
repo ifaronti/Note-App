@@ -13,7 +13,7 @@ const tags_fetcher = async () => {
 
 export const options = {
     revalidateIfStale: false,
-    revalidateOnFocus: true,
+    revalidateOnFocus: false,
     revalidateOnReconnect: false
 }
 
