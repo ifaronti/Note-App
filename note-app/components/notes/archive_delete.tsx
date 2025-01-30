@@ -5,24 +5,26 @@ import { note } from "../models/items"
 import useNavigation from "@/hooks/useNavigation"
 import { update_note } from "@/hooks/update_note"
 import { mutate } from "swr"
+import { parse_query } from "./helper"
 
 export default function Delete_Or_Archive({ current }: { current: note }) {
-    const {set, get,del} = useNavigation()
+    const { set, get} = useNavigation()
     const pane = get('pane')
+    const id = Number(get('id'))
 
     async function delete_modal() {
         set('dialog', 'delete')
-        set('id', String(current.id))
+        set('id', String(current?.id))
     }
 
-    async function edit_note() {
-        const bool = pane === 'Archived'? false:true
-        const payload = { is_archived: bool, id: Number(current.id) }
+    async function restore_note() {
+        const payload = { is_archived: false, id: id }
         try {
             const data = await update_note(payload, String(localStorage.getItem('token')))
             if (data.success) {
                 set('toast', data.message)
-                await mutate('server-notes')
+                await mutate([parse_query('', 'archived')])
+                set('refetch', 'notes')
             }
         }
         catch (err:any) {
@@ -32,25 +34,14 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
 
     async function open_modal() {
         set('dialog', 'archive')
-        set('id', String(current.id))
+        set('id', String(current?.id))
     }
 
     function right_bar() {
-        let showBTNS
-        switch (current.title) {
-            case 'Untitled Note':
-                showBTNS = false
-                break
-            case '':
-                showBTNS = false
-                break
-            case 'select a note':
-                showBTNS = false
-                break
-            default:
-                showBTNS = true
+        if (!current?.title || current?.title === 'Untitled Note') {
+            return false
         }
-        return showBTNS
+        return true
     }
     
     return (
@@ -58,7 +49,7 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
                 {
                     right_bar() 
                     &&
-                    <button onClick={pane== 'Archived'? edit_note:open_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
+                    <button onClick={pane== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
                         <span>{pane==="Archived"? restore_icon:archive_icon}</span> 
                         <span>{pane === "Archived"? "Restore Note": "Archive Note"}</span>
                     </button>

@@ -14,7 +14,7 @@ export async function get_notes(token:string, parameter?:string) {
     // const url = process.env.APP_URL === undefined ? "/data.json" : 
 
     let url = `${process.env.APP_URL}/notes`
-    if (parameter && parameter !== 'server-notes') {
+    if (parameter) {
         url =`${url}?${parameter}`
     }
     

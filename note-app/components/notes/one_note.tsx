@@ -6,27 +6,26 @@ import useNavigation from "@/hooks/useNavigation";
 
 type note_props = {
     note: note
-    current_note: (note:note)=>void
 }
 
-export default function Note({ note, current_note }: note_props) {
-    const {get} = useNavigation()
-    const title = get("title")
+export default function Note({ note}: note_props) {
+    const {get, set} = useNavigation()
+    const id = Number(get("id"))
     const color = get("color") || 'light'
 
 
     function bg() {
-        if (title == note.title && color === 'light') {
+        if (id == note.id && color === 'light') {
             return'bg-[#F3F5F8]'
         }
-        if (title == note.title && color === 'dark') {
+        if (id == note.id && color === 'dark') {
             return'bg-[#232530]'
         }
         return 'bg-none'
     }
 
     return (
-        <article onClick={() => current_note(note)}
+        <article onClick={()=>set('id', String(note.id))}
             className={`flex rounded-lg cursor-pointer ${bg()} flex-col gap-3 p-2`}
         >
             {note.title && <h3 className={`${presets.preset3} text-text9`}>{note.title}</h3>}

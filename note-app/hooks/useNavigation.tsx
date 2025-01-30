@@ -6,7 +6,7 @@ export default function useNavigation() {
     const params = new URLSearchParams(useSearchParams())
 
     function set_replace(query:string, value:string) {
-        params.set(String(query), String(value))
+        params.set(query, value)
         router.replace(`${pathname}?${params}`)
     }
 
@@ -17,7 +17,11 @@ export default function useNavigation() {
     function nav_to(path: string) {
         router.push(path)
     }
-
+    
+    function replace(path: string) {
+        router.replace(`${pathname}?${path}`)
+    }
+    
     function del_query(query:string) {
         params.delete(query)
         router.replace(`${pathname}?${params}`)
@@ -27,6 +31,7 @@ export default function useNavigation() {
         set: set_replace,
         get: get_query,
         push: nav_to,
-        del:del_query,
+        del: del_query,
+        replace: replace,
     }
 }

@@ -3,46 +3,45 @@ import { update_note } from "@/hooks/update_note";
 import useNavigation from "@/hooks/useNavigation";
 import { mutate } from "swr";
 import { delete_note } from "@/hooks/delete_note";
+import { parse_query } from "../notes/helper";
 
 export default function Modal() {
     const { set, get, del } = useNavigation()
-    const pane = get('pane')
     const id = get('id')
     const dialog = get('dialog')
+    const tag = get('tag')
+    const param = get('parameter')
 
     async function remove_note() {
         try {
             const data = await delete_note(Number(id), String(localStorage.getItem('token')))
             if (data.success) {
                 await mutate('tags')
-                await mutate('server-notes')
+                //@ts-expect-error
+                await mutate([parse_query(tag, param)])
                 set('toast', data.message)
-                set('dialog', '')
                 del('dialog')
             }
         }
         catch (err:any) {
             set('toast', err.message)
-            set('dialog', '')
             del('dialog')
         }
     }
 
     async function patch_note() {
-        const bool = pane === 'Archived'? false:true
-        const payload = { is_archived: bool, id: Number(id) }
+        const payload = { is_archived: true, id: Number(id) }
         try {
             const data = await update_note(payload, String(localStorage.getItem('token')))
             if (data.success) {
                 set('toast', data.message)
-                await mutate('server-notes')
-                set('dialog', '')
                 del('dialog')
+                await mutate([parse_query('all', '')])
+                set('refetch', 'archived')
             }
         }
         catch (err:any) {
             set('toast', err.message)
-            set('dialog', '')
             del('dialog')
         }
     }
@@ -52,5 +51,4 @@ export default function Modal() {
             <Dialog_Box del_note={remove_note} archive_note={patch_note} />
         </div>
     )
-    
 }

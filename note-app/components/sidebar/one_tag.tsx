@@ -7,7 +7,7 @@ type props = {
 }
 
 export default function One_Tag({ tag_name }: props) {
-    const {set, get} = useNavigation()
+    const {set, get, del} = useNavigation()
     const current_tag = String(get('tag'))
     const system_theme = window.matchMedia('preferred-color-scheme:light').matches ? 'light' : 'dark'
     const color_query = String(get('color'))
@@ -19,6 +19,8 @@ export default function One_Tag({ tag_name }: props) {
 
     function change_tag(tag_name: string) {
         set("tag", tag_name)
+        del('parameter')
+        set('pane', 'Home')
     }
 
     return (

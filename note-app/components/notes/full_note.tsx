@@ -6,23 +6,25 @@ import { new_note } from "@/hooks/create_note";
 import { update_note } from "@/hooks/update_note";
 import { mutate } from "swr";
 import useNavigation from "@/hooks/useNavigation";
+import { parse_query } from "./helper";
 
 type props = {
     handleChange: (e:any)=>void
     current: note
     update_details: opt_note
-    cancel : ()=>void
 }
 
-export default function Full_Note({ current, handleChange, cancel, update_details }: props) {
-    const {set, get} = useNavigation()
+export default function Full_Note({ current, handleChange, update_details }: props) {
+    const {set, get, del} = useNavigation()
     const title = get('title')
+    const pane = get('pane')
     
     async function create_note() {
         const payload = { tags: current.tags, content: current.content, title: current.title }
         const data = await new_note(payload, String(localStorage.getItem('token')))
         set('toast', data.message)
-        await mutate('server-notes')
+        del('title')
+        await mutate([parse_query('all', '')])
         await mutate('tags')
         return
     }
@@ -30,7 +32,7 @@ export default function Full_Note({ current, handleChange, cancel, update_detail
     async function patch_note() {
         const data = await update_note(update_details, String(localStorage.getItem('token')))
         set('toast', data.message)
-        await mutate('server-notes')
+        await mutate([parse_query('all', '')])
         if (update_details.tags) {
             await mutate('tags')
         }
@@ -57,8 +59,8 @@ export default function Full_Note({ current, handleChange, cancel, update_detail
             />
             <HR_LINE />
             <div className="h-[41px] pb-5 flex gap-4 w-full">
-                <button onClick={title === "Untitled Note"?create_note:patch_note} type="button" className="xl:bg-[#335CFF] h-[41px] w-[99px] rounded-lg text-white bg-none border-none hover:bg-[#2547D0]">Save Note</button>
-                <button onClick={cancel} type="button" className="xl:bg-cancel h-[41px] w-[99px] border-none rounded-lg text-text6 ">Cancel</button>
+                <button disabled={pane === 'Home'?false:true} onClick={title === "Untitled Note"?create_note:patch_note} type="button" className="xl:bg-[#335CFF] h-[41px] w-[99px] rounded-lg text-white bg-none border-none hover:bg-[#2547D0]">{pane === 'Home'?'Save Note':'Inactive'}</button>
+                <button onClick={()=>del('id')} type="button" className="xl:bg-cancel h-[41px] w-[99px] border-none rounded-lg text-text6 ">Cancel</button>
             </div>
         </div>
     )

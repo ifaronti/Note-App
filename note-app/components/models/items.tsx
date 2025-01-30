@@ -3,7 +3,7 @@ export type note = {
     tags: string[]
     content: string
     last_edited: string
-    is_archived: boolean
+    is_archived?: boolean
     id?:number
 }
 export type opt_note = {
