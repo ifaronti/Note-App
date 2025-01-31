@@ -10,7 +10,7 @@ import useNavigation from "@/hooks/useNavigation";
 
 
 export default function Forgot_Password() {
-    const {set, get, push} = useNavigation()
+    const {set, get, push, get_font} = useNavigation()
     const [showStatus, setShowStatus] = useState(false)
     const status_message = get('toast')
 
@@ -42,7 +42,7 @@ export default function Forgot_Password() {
     }
 
     return (
-        <section className="flex flex-col bg-page rounded-lg gap-4 md:w-[540px] px-4 py-12 w-[343px] md:px-12">
+        <section className={`${get_font()} flex flex-col bg-page rounded-lg gap-4 md:w-[540px] px-4 py-12 w-[343px] md:px-12`}>
             <Auth_Hero
                 header="Forgotten your password?"
                 description="Enter your email below, and we’ll send you a link to reset it."

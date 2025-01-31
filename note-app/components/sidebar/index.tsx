@@ -40,7 +40,7 @@ export default function Sidebar() {
                 <HR_LINE/>
             </div>
             <div className="w-full flex gap-2 xl:w-[240px] flex-col">
-                <span className={`${presets.preset4} w-full text-text5 px-3 self-start`}>Tags</span>
+                <span className={`${presets.preset4} w-full text-text4 px-3 self-start`}>Tags</span>
                 {all_tags}
             </div>
         </section>

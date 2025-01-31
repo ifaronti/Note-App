@@ -3,16 +3,21 @@ import Sidebar from "../sidebar";
 import Notes_Panel from "../notes";
 import NavBar from "../nav";
 import Settings from "../settings";
-import { useSearchParams } from "next/navigation";
 import { presets } from "../text";
 import Modal from "../modal";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function Views() {
-    const [theme, setTheme] = useState('')
-    const current_view = useSearchParams().get('pane')
+    const {get, get_font, push} = useNavigation()
+    const current_view = get('pane')
 
     useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            push('/login')
+        }
         const current = document.documentElement.getAttribute('data-theme')
         if (current == localStorage.getItem('color')) {
             return
@@ -22,7 +27,7 @@ export default function Views() {
                 "data-theme", String(localStorage.getItem('color'))
             )
         }
-    },[])
+    }, [])
 
     function panel() {
         let display
@@ -43,7 +48,7 @@ export default function Views() {
     }
     
     return (
-        <section className="h-full relative w-full flex">
+        <section className={`h-full ${get_font()} relative w-full flex`}>
             <Modal/>
             <Sidebar />
             <div className="w-full flex flex-col relative h-full">

@@ -26,7 +26,7 @@ export default function Password_Input({name, label, handleBlur, }:inputProps){
                 className="h-[42px] bg-inherit px-4 cursor-pointer rounded-lg peer/password w-full invalid:border-[red] border border-[#cacfd8]"
             />
             <label htmlFor="password" className="text-text9 relative flex items-center peer-invalid/password:text-red-500">{label} {
-                !pathName.includes('reset') &&!pathName.includes("dashboard") && <Link className={`hover:text-[335CFF] text-text5 underline absolute right-0 ${presets.preset6}`} href={"/login/forgot"}>Forgot</Link>}
+                pathName === '/login' && <Link className={`hover:text-[335CFF] hover:text-red-500 text-text9 underline absolute right-0 ${presets.preset6}`} href={"/login/forgot"}>Forgot</Link>}
             </label>
             
             <div className="absolute right-10 top-10">

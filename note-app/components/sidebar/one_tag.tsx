@@ -25,7 +25,7 @@ export default function One_Tag({ tag_name }: props) {
 
     return (
         <button onClick={()=>change_tag(tag_name)} className={`border-none ${presets.preset4} text-text9 rounded-lg bg-none w-full flex items-center justify-between`}>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center capitalize gap-2">
                 <span>{tag_svg}</span>
                 <span>{tag_name}</span>
             </span>

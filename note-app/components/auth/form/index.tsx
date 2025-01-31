@@ -5,17 +5,16 @@ import { formEvent, inputEvent } from "@/components/models/props";
 import { usePathname } from "next/navigation";
 import { register, signupRes } from "@/hooks/signup";
 import { loginres, useLogin } from "@/hooks/login";
-import { useRouter } from "next/navigation";
+import useNavigation from "@/hooks/useNavigation";
 
 type props = {
     btn_text: string
 }
 
-export default function Form({btn_text}:props) {
+export default function Form({ btn_text }: props) {
+    const {set, push} = useNavigation()
     const [errors, setErrors] = useState({ email: false, password: false })
-    const [toast, setToast] = useState('')
     const path = usePathname()
-    const router = useRouter()
     
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.tooShort) {
@@ -38,7 +37,6 @@ export default function Form({btn_text}:props) {
             email:String(formData.get('email')),
             password:String(formData.get('password')),
         }
-
         formData.append('username', rawData.email)
         formData.delete('email')
 
@@ -47,15 +45,15 @@ export default function Form({btn_text}:props) {
             const data:loginres & signupRes = path.includes('login') ? await useLogin(formData) : await register(rawData)
             if (data.access_token) {
                 localStorage.setItem('token', data.access_token)
-                setToast('logged in successfully')
-                router.push('/dashboard?color=light&pane=')
+                set('toast', 'logged in successfully')
+                push('/dashboard?color=light&font=san-serif&pane=')
             }
             if (data.message) {
-                router.push('/login')
+                push('/login')
             }
         }
         catch (err: any) {
-            setToast(err.message)
+            set('toast', err.message)
         }
     }
 

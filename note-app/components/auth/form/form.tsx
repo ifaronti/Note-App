@@ -3,6 +3,7 @@ import Form_Errors from "./errors"
 import Email_Input from "./email_input"
 import Password_Input from "./password_input"
 import Form_Btn from "./form_btn"
+import useNavigation from "@/hooks/useNavigation"
 
 export type auth_form = {
     handleSubmit: (e:formEvent) => void,
@@ -17,9 +18,11 @@ export default function Form_Component({
     handleBlur,
     btn_text
 }: auth_form) { 
+
+    const {get_font} = useNavigation()
     
     return (
-        <form onSubmit={handleSubmit} className="pt-6 flex flex-col gap-4 w-full">
+        <form onSubmit={handleSubmit} className={`pt-6 ${get_font()} flex flex-col gap-4 w-full`}>
             <div>
                 <Email_Input handleBlur={handleBlur} />
                 <Form_Errors error={errors.email} text="Please enter a valid email address"/>
