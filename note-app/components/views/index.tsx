@@ -7,9 +7,13 @@ import { presets } from "../text";
 import Modal from "../modal";
 import { useEffect} from "react";
 import useNavigation from "@/hooks/useNavigation";
+import Mobile_Nav from "../nav/mobile_nav/mobile_nav";
+import Mobile_Hero from "./mobile_hero";
+import useWindowSize from "@/hooks/windowSize";
 
 export default function Views() {
-    const {get, get_font, push} = useNavigation()
+    const { get, get_font, push } = useNavigation()
+    const screen_width = useWindowSize().width
     const current_view = get('pane')
 
     useEffect(() => {
@@ -18,15 +22,18 @@ export default function Views() {
         if (!token) {
             push('/login')
         }
+
         const current = document.documentElement.getAttribute('data-theme')
         if (current == localStorage.getItem('color')) {
             return
         }
+
         else {
             document.documentElement.setAttribute(
-                "data-theme", String(localStorage.getItem('color'))
+                "data-theme", String(localStorage.getItem('color') || 'light')
             )
         }
+        
     }, [])
 
     function panel() {
@@ -42,14 +49,16 @@ export default function Views() {
                 display = <Notes_Panel />
                 break
             default:
-                display = <h2 className={`${presets.preset2} my-48 text-text9 text-center`}>Select A View From The Sidebar</h2>
+                display = screen_width >= 1280 &&<h2 className={`${presets.preset2} my-48 text-text9 text-center`}>Select A View From The Sidebar</h2>
         }
         return display
     }
     
+    
     return (
-        <section className={`h-full ${get_font()} relative w-full flex`}>
-            <Modal/>
+        <section className={`h-full ${get_font()} relative w-full flex flex-col xl:flex-row`}>
+            {screen_width < 1280 && <Mobile_Hero/>}
+            <Modal />
             <Sidebar />
             <div className="w-full flex flex-col relative h-full">
                 <NavBar/>
@@ -57,6 +66,7 @@ export default function Views() {
                  {panel()}
                 </div>
             </div>
+            <Mobile_Nav/>
         </section>
     )
 }

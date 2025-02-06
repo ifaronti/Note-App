@@ -1,14 +1,17 @@
 'use client'
 
 import { presets } from "../text";
-import { search_icon, setting_icon } from "../svg_assets";
-import { formEvent } from "../models/props";
+import {setting_icon } from "../svg_assets";
 import useNavigation from "@/hooks/useNavigation";
+import Search_Bar from "./search_form";
+import useWindowSize from "@/hooks/windowSize";
 
 export default function NavBar() {
-    const {set, get, del} = useNavigation()
+    const { set, get } = useNavigation()
+    const screen_width = useWindowSize().width
     const pane = get("pane")
     const tag = get("tag")
+    const setting = get('setting')
     const parameter = get("parameter")
 
     function nav_text() {
@@ -19,42 +22,37 @@ export default function NavBar() {
         if (parameter !== 'archived' && parameter) {
             text = `Showing results for: ${parameter}`
         }
+        if (pane == 'Settings') {
+            text = pane
+        }
+        if (setting) {
+            text = ''
+        }
         return text
     }
-
 
     function change_pane(current_pane: string) {
         set("pane", current_pane)
     }
 
-    function handleSubmit(e: formEvent) {
-        del('tag')
-        del('id')
-        const formData = new FormData(e.currentTarget)
-        set('parameter', String(formData.get("search")))
+    function display() {
+        if (screen_width >= 1280) {
+            return true
+        }
+        if (screen_width < 1280 && pane !== 'Home' && pane !== 'Settings' && pane !== 'Archived') {
+            return false
+        }
+        return true
     }
 
     return (
-        <nav className="h-fit px-8 xl:h-[81px] justify-between border-b-[1px] border-b-borders flex xl:items-center">
-            <h1 className={`${presets.preset1} text-text9`}>
+        <nav className="h-fit mt-5 md:mt-6 xl:mt-[unset] px-8 xl:h-[81px] justify-between flex-col xl:flex-row xl:border-b-[1px] xl:border-b-borders flex xl:items-center">
+            {display() &&<h1 className={`${presets.preset1} text-text9`}>
                 {nav_text()}
-            </h1>
+            </h1>}
             <div className="flex items-center gap-4">
-                <form onSubmit={handleSubmit} className="h-11 w-[300px] flex items-center gap-2 rounded-lg px-4 border border-borders">
-                    
-                    <button type="button" className="bg-none border-none">
-                        {search_icon}
-                    </button>
-                   
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search by title, content or tags..."
-                        className={`border-none bg-inherit relative w-full active:text-text9 ${presets.preset5} outline-none focus:text-text9 text-text5 focus:border-none focus:outline-none`}
-                    />
-                </form>
-
-                <button onClick={()=>change_pane("Settings")} className="bg-none border-none">
+               <Search_Bar/>
+                <button onClick={()=>change_pane("Settings")} className="bg-none hidden xl:block border-none">
                     {setting_icon}
                 </button>
             </div>

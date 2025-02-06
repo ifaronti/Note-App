@@ -11,6 +11,15 @@ export default function Note_Header({ current, handleChange }: props) {
     const title = useSearchParams().get('title')
     return (
         <>
+            <input
+                type="text"
+                value={current?.title}
+                placeholder="Enter a short descriptive title for note or select a not to modify"
+                name="title"
+                onChange={handleChange}
+                className={`w-full bg-inherit ${current?.title == ''? 'font-normal': presets.preset1} text-text9 outline-none`}
+            />
+
             <div className="w-full flex-shrink-0 h-[26px] flex gap-2 items-center justify-start">
                 
                 <span className={`flex ${presets.preset5} flex-shrink-0 items-center gap-[6px] text-t_e_d w-[115px]`}>
@@ -25,6 +34,7 @@ export default function Note_Header({ current, handleChange }: props) {
                     className={`w-full h-[18px] ${presets.preset5} text-text9 bg-inherit outline-none`}
                 />
             </div>
+
             <div className={` flex-shrink-0 w-full h-[26px] ${presets.preset5} text-t_e_d flex gap-2 items-center justify-start`}>
                 <span className={`flex items-center gap-[6px] text-t_e_d w-[115px]`}>
                     {clock_icon} Last Edited
@@ -33,7 +43,7 @@ export default function Note_Header({ current, handleChange }: props) {
                     {title ==
                         "Untitled Note"
                         ?
-                        'Not yet saved' : format_date(String(current?.last_edited))}
+                        'Not yet saved' : !current?.last_edited? 'No note selected': format_date(String(current?.last_edited))}
                 </span>
             </div>
         </>

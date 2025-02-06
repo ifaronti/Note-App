@@ -28,7 +28,7 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
             }
         }
         catch (err:any) {
-            set('toast', err.message)
+            set('toast', err.message + ' -red')
         }
     }
 
@@ -45,20 +45,20 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
     }
     
     return (
-            <div className="flex-shrink-0 flex flex-col gap-4 h-full pt-5 border-l-[1px] border-l-borders xl:pl-4 xl:w-[258px]">
+            <div className="flex-shrink-0 gap-2 flex xl:flex-col xl:gap-4 xl:h-full xl:pt-5 xl:border-l-[1px] xl:border-l-borders xl:pl-4 xl:w-[258px]">
                 {
                     right_bar() 
                     &&
-                    <button onClick={pane== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
+                    <button onClick={pane== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start border-[0px] bg-none text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
                         <span>{pane==="Archived"? restore_icon:archive_icon}</span> 
-                        <span>{pane === "Archived"? "Restore Note": "Archive Note"}</span>
+                        <span className="hidden xl:block">{pane === "Archived"? "Restore Note": "Archive Note"}</span>
                     </button>
                 }
 
                 {
                     right_bar()
                     && 
-                    <button onClick={delete_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:w-[242px] xl:h-11 xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
+                    <button onClick={delete_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:w-[242px] xl:h-11 xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border-[1px] xl:rounded-lg xl:border-borders border-[0px]`}>
                         <span>{delete_icon}</span> 
                         <span className="hidden xl:block">Delete Note</span>
                     </button>

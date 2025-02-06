@@ -19,6 +19,7 @@ body{
   --auth-page:#F3F5F8;
   --global-bak:#FFFFFF;
   --input-bg:#F3F5F8;
+  --mobile-nav:#F3F5F8;
   --text-200:#E0E4EA;
   --text-300:#CACFD8;
   --dialog:#fff;
@@ -43,6 +44,7 @@ body{
   --global-bak:black;
   --dialog-text:#E0E4EA;
   --cancel:#2B303B;
+  --mobile-nav:#232530;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -52,4 +54,23 @@ body{
 .no-scrollbar {
   -ms-overflow-style:auto;
   scrollbar-width: none;
+}
+
+@keyframes notification {
+  0%{
+    left: 0;
+  }
+
+  50% {
+    left: 50%;
+  }
+  
+  100%{
+    left: 50%;
+  }
+}
+
+.notification{
+  animation-name: notification;
+  animation-duration: 4s;
 }

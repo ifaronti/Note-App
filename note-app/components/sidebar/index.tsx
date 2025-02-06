@@ -1,15 +1,9 @@
 import Nav_Buttons from "./nav-buttons";
 import { logo } from "../svg_assets";
 import HR_LINE from "../hr_line";
-import { useSearchParams } from "next/navigation";
-import { presets } from "../text";
-import One_Tag from "./one_tag";
-import useSWR from "swr";
-import { get_tags } from "@/hooks/get_tags";
-
-const tags_fetcher = async () => {
-    return await get_tags(String(localStorage.getItem('token')))
-}
+import useNavigation from "@/hooks/useNavigation";
+import Tags from "./tags";
+import useWindowSize from "@/hooks/windowSize";
 
 export const options = {
     revalidateIfStale: false,
@@ -18,31 +12,23 @@ export const options = {
 }
 
 export default function Sidebar() {
-    const current_tag = useSearchParams().get('tag')
-    const { data, error } = useSWR('tags', tags_fetcher, options)   
-    
-    const all_tags= data?.tags?.map((item, index) => {
-        if (error) { return <p key={index+1}>An error has occured</p> }
-        if (!data){return <p key={index+1}>Loading...</p>}
-        return (
-            <div key={index+1} className={`w-full xl:w-[240px] items-center justify-center px-3 rounded-lg h-10 flex flex-col ${current_tag === item? 'bg-auth_page':''}`}>
-                <One_Tag tag_name={item} />
-                {index+1 === data?.tags.length ? <span className="w-full block xl:hidden"><HR_LINE/></span>:''}
-            </div>
-        )
-    })
+    const { get } = useNavigation()
+    const screen_width = useWindowSize().width
+    const pane = get('pane')
 
     return (
-        <section className="flex-col flex-shrink-0 overflow-y-scroll pt-3 no-scrollbar border-r-[0.5px] h-full border-r-borders w-full xl:w-[272px] px-4 hidden xl:flex">
-            <div className="h-[52px] pt-3">{ logo}</div>
-            <Nav_Buttons />
-            <div className="my-2">
-                <HR_LINE/>
-            </div>
-            <div className="w-full flex gap-2 xl:w-[240px] flex-col">
-                <span className={`${presets.preset4} w-full text-text4 px-3 self-start`}>Tags</span>
-                {all_tags}
-            </div>
+        <section className={`flex flex-col flex-shrink-0 overflow-y-scroll no-scrollbar border-r-[0.5px] border-r-borders w-full xl:w-[272px] px-4 pt-3`}>
+            
+            {screen_width >= 1280 && <div className="h-[52px] xl:block hidden pt-3">{logo}</div>}
+
+            {screen_width >= 1280 && <div className="xl:block hidden">
+                <Nav_Buttons />
+            </div>}
+
+        {screen_width >= 1280 &&<div className="my-2 hidden xl:block">
+            <HR_LINE/>
+        </div>}
+            {screen_width >= 1280 || pane == 'Tags' && <Tags/>}
         </section>
     )
 }

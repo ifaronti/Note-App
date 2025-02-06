@@ -7,21 +7,35 @@ import Form_Errors from "../auth/form/errors"
 import { useState } from "react"
 
 export default function Change_Password() {
-    const { set, get } = useNavigation()
+    const { set, get, del } = useNavigation()
     const toast = get('toast')
     const [showStatus, setShowStatus] = useState(false)
 
     async function reset_pass(e: formEvent) {
+        e.preventDefault()
+        setShowStatus(false)
+        del('toast')
+
         const formData = new FormData(e.currentTarget)
-        const payload = { password: String(formData.get('new')) }
+        
+        if (formData.get('new') !== formData.get('confirm')) {
+            set('toast', 'passwords do not match')
+        }
+
+        const payload = {
+            password: String(formData.get('new')),
+            old_pass: String(formData.get('old'))
+        }
         
         try {
             const data = await password_reset(payload, String(localStorage.getItem('token')))
-            set('toast', data.message)
-            setShowStatus(true)
+            if(data.success) {
+                set('toast', 'Password Changed Successfully')
+                setShowStatus(true)
+            }
         }
-        catch (err: any) {
-            set('toast', err.message)
+        catch(err: any) {
+            set('toast', err.message + ' -red')
             setShowStatus(true)
         }
     }
@@ -36,11 +50,12 @@ export default function Change_Password() {
 
             <Password_Input label="Confirm New Password" name="confirm" />
 
-            <button type="button"
+            <button 
                 className={`w-[132px] hover:bg-[#2547D0] bg-[#335CFF] 
                     ${presets.preset4} text-white h-[41px] self-end rounded-lg`
                 }
-            >Save Password
+            >
+                Save Password
             </button>
             {toast && <Form_Errors error={showStatus} text={toast} />}
         </form>

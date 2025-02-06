@@ -2,7 +2,7 @@ import { presets } from "../text";
 
 export default function Note_Tag({tags_arr}:{tags_arr:string[]}) {
 
-    return <div className="xl:grid xl:grid-cols-4 w-fit gap-1">
+    return <div className="xl:grid xl:grid-cols-4 xl:w-fit flex gap-1">
         {
             tags_arr.map((item, index) => {
                 return (

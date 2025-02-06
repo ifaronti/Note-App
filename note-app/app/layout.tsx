@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Notification from "@/components/notifications";
 
 export const metadata: Metadata = {
   title: "Note App",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body>
         <main className="h-screen overflow-y-scroll no-scrollbar w-full 2xl:w-[1440px] mx-auto">
           {children}
+          <Notification />
         </main>
       </body>
     </html>

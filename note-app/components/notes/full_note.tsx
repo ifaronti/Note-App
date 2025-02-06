@@ -7,6 +7,7 @@ import { update_note } from "@/hooks/update_note";
 import { mutate } from "swr";
 import useNavigation from "@/hooks/useNavigation";
 import { parse_query } from "./helper";
+import Note_Actions from "./notes_actions_buttons/Note_Actions_BTNs";
 
 type props = {
     handleChange: (e:any)=>void
@@ -15,53 +16,57 @@ type props = {
 }
 
 export default function Full_Note({ current, handleChange, update_details }: props) {
-    const {set, get, del} = useNavigation()
-    const title = get('title')
+    const { set, del, get } = useNavigation()
     const pane = get('pane')
     
     async function create_note() {
         const payload = { tags: current.tags, content: current.content, title: current.title }
-        const data = await new_note(payload, String(localStorage.getItem('token')))
-        set('toast', data.message)
-        del('title')
-        await mutate([parse_query('all', '')])
-        await mutate('tags')
-        return
+
+        try {
+            const data = await new_note(payload, String(localStorage.getItem('token')))
+            set('toast', data.message)
+            del('title')
+            await mutate([parse_query('all', '')])
+            if (payload.tags[0]) {
+                await mutate('tags')
+            }
+            return
+        }
+        catch (err:any) {
+            set('toast', err.message + ' -red')
+        }
     }
 
     async function patch_note() {
-        const data = await update_note(update_details, String(localStorage.getItem('token')))
-        set('toast', data.message)
-        await mutate([parse_query('all', '')])
-        if (update_details.tags) {
-            await mutate('tags')
+        try {
+            const data = await update_note(update_details, String(localStorage.getItem('token')))
+            set('toast', data.message)
+            await mutate([parse_query('all', '')])
+            if (update_details.tags) {
+                await mutate('tags')
+            }
+            return
         }
-        return
+        catch (err:any) {
+            set('toast', err.message+' -red')
+        }
     }
     
     return (
-        <div className="flex flex-col w-full px-6 py-5 gap-4 border-r-borders">
-            <input
-                type="text"
-                value={String(current?.title)}
-                name="title"
-                onChange={handleChange}
-                className={`w-full bg-inherit ${presets.preset1} text-text9 outline-none`}
-            />
-            <Note_Header handleChange={handleChange} current={current} />
-            <HR_LINE />
-            <textarea
-                onChange={handleChange}
-                value={String(current?.content)}
-                name="content"
-                id="content"
-                className={`w-full bg-inherit flex-grow-0 outline-none resize-none ${presets.preset5} text-text8 h-full overflow-y-scroll no-scrollbar`}
-            />
-            <HR_LINE />
-            <div className="h-[41px] pb-5 flex gap-4 w-full">
-                <button disabled={pane === 'Home'?false:true} onClick={title === "Untitled Note"?create_note:patch_note} type="button" className="xl:bg-[#335CFF] h-[41px] w-[99px] rounded-lg text-white bg-none border-none hover:bg-[#2547D0]">{pane === 'Home'?'Save Note':'Inactive'}</button>
-                <button onClick={()=>del('id')} type="button" className="xl:bg-cancel h-[41px] w-[99px] border-none rounded-lg text-text6 ">Cancel</button>
+        <div className={`flex-col-reverse flex xl:flex-col w-full px-4 xl:px-8 py-5 gap-4 xl:border-r-borders`}>
+            <div className="w-full h-full flex-col flex gap-4">
+                <Note_Header handleChange={handleChange} current={current} />
+                <HR_LINE />
+                <textarea
+                    onChange={handleChange}
+                    value={String(current?.content)}
+                    name="content"
+                    id="content"
+                    className={`w-full bg-inherit flex-grow-0 outline-none resize-none ${presets.preset5} text-text8 h-full overflow-y-scroll no-scrollbar`}
+                />
             </div>
+            <HR_LINE />
+            <Note_Actions create_note={create_note} patch_note={patch_note} current={current}/>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import useSWR from "swr"
 import { options } from "../sidebar"
 import useNavigation from "@/hooks/useNavigation"
 import { parse_query } from "./helper"
+import useWindowSize from "@/hooks/windowSize"
 
 const notes_fetcher = async (parameter:string) => {
     return await get_notes(String(localStorage.getItem('token')), parameter)
@@ -21,6 +22,7 @@ export default function Notes_Panel() {
     const param = get('parameter')
     const [current, setCurrent] = useState<note>(defaultCurrent)
     const [patchLoad, setPatchLoad] = useState({})
+    const screen_width = useWindowSize().width
 
     //@ts-expect-error
     const { data: notes, error, isLoading } = useSWR([parse_query(tag, param)], notes_fetcher, options)
@@ -51,15 +53,20 @@ export default function Notes_Panel() {
         setCurrent({...current, [name]:value})
         setPatchLoad({...patchLoad, [name]:value})
     }
+    
 
     return (
-        <div className="w-full flex relative h-full pr-8">
+        <div className="w-full flex relative h-full xl:pr-8">
             {/*//@ts-expect-error */}
             <Notes_Sidebar notes={notes?.data} />
             
-            <Full_Note update_details={{ ...patchLoad, id: Number(current?.id) }} handleChange={handleChange} current={current} />
+            {id !==0  && <Full_Note
+                update_details={{ ...patchLoad, id: Number(current?.id) }}
+                handleChange={handleChange}
+                current={current}
+            />}
             
-            <Delete_Or_Archive current={current}/>
+            {screen_width >= 1280 && <Delete_Or_Archive current={current} />}
         </div>
     )
 }

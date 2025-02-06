@@ -24,7 +24,7 @@ export default function Modal() {
             }
         }
         catch (err:any) {
-            set('toast', err.message)
+            set('toast', err.message + ' -red')
             del('dialog')
         }
     }
@@ -41,7 +41,7 @@ export default function Modal() {
             }
         }
         catch (err:any) {
-            set('toast', err.message)
+            set('toast', err.message +'-red')
             del('dialog')
         }
     }

@@ -25,7 +25,8 @@ export default {
         borders:"var(--borders)",
         dialog:"var(--dialog)",
         dialog_text:"var(--dialog-text)",
-        cancel:"var(--cancel)"
+        cancel: "var(--cancel)",
+        mobile_hero: "var(--mobile-nav)"
       },
     },
   },

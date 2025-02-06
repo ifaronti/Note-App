@@ -3,13 +3,15 @@ import { presets } from "../text";
 import { format_date } from "./format_date";
 import { note } from "../models/items";
 import useNavigation from "@/hooks/useNavigation";
+import useWindowSize from "@/hooks/windowSize";
 
 type note_props = {
     note: note
 }
 
 export default function Note({ note}: note_props) {
-    const {get, set} = useNavigation()
+    const { get, set } = useNavigation()
+    const screen_width = useWindowSize().width
     const id = Number(get("id"))
     const color = get("color") || 'light'
 
@@ -24,8 +26,12 @@ export default function Note({ note}: note_props) {
         return 'bg-none'
     }
 
+    function note_click() {
+        set('id', String(note.id))
+    }
+
     return (
-        <article onClick={()=>set('id', String(note.id))}
+        <article onClick={note_click}
             className={`flex rounded-lg cursor-pointer ${bg()} flex-col gap-3 p-2`}
         >
             {note.title && <h3 className={`${presets.preset3} text-text9`}>{note.title}</h3>}
