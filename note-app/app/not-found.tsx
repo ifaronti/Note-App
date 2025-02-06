@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function NotFound() {
   
@@ -9,19 +9,19 @@ export default function NotFound() {
       className=" bg-[#E0E4EA] flex flex-col gap-5 w-full h-full items-center justify-center"
     >
       Page Not In Directory.
-      <button
-        onClick={redirect('/login')}
+      <Link 
+        href={'/login'}
         className="bg-[#355CFF] border-none rounded-lg w-[110px]"
       >
         Login
-      </button>
+      </Link >
 
-      <button
-        onClick={redirect('/signup')}
+      <Link
+        href={'/signup'}
         className="bg-[#355CFF] border-none rounded-lg w-[110px]"
       >
         Register
-      </button>
+      </Link >
 
     </div>
   )
