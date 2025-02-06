@@ -35,7 +35,7 @@ export default function Notes_Sidebar({notes}: props) {
     }
 
     function new_note() {
-        del('id')
+        set('id', '0')
         set('title', 'Untitled Note')
     }
 
@@ -51,17 +51,20 @@ export default function Notes_Sidebar({notes}: props) {
 
     return display_bool() &&(
         <div className="pt-5 flex-shrink-0 flex-grow-0 gap-4 h-full overflow-y-scroll no-scrollbar flex flex-col xl:border-r-[1px] xl:border-r-borders w-full xl:w-[290px] px-8 xl:px-[unset] xl:pl-8 xl:pr-4">
-            <Create_Button new_note={new_note}/>
+            <Create_Button new_note={new_note} />
+            
             {pane?.includes("Archived") &&
                 <p className={`${presets.preset5} text-text7`}>
                     All your archived notes are stored here. You can restore or delete them anytime.
                 </p>
             }
+
             {title === 'Untitled Note' &&
                         <article className={`rounded-lg bg-[#F3F5F8] flex-col gap-3 p-2`}>
                             <h3 className={`${presets.preset3}`}>Untitled note</h3>
                         </article>
             }
+            
             <div className="w-full h-full">
                 {select_display()}
             </div>

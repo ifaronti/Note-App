@@ -3,15 +3,13 @@ import { presets } from "../text";
 import { format_date } from "./format_date";
 import { note } from "../models/items";
 import useNavigation from "@/hooks/useNavigation";
-import useWindowSize from "@/hooks/windowSize";
 
 type note_props = {
     note: note
 }
 
 export default function Note({ note}: note_props) {
-    const { get, set } = useNavigation()
-    const screen_width = useWindowSize().width
+    const { get, set, del } = useNavigation()
     const id = Number(get("id"))
     const color = get("color") || 'light'
 
@@ -28,6 +26,7 @@ export default function Note({ note}: note_props) {
 
     function note_click() {
         set('id', String(note.id))
+        del('title')
     }
 
     return (

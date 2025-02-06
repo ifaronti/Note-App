@@ -17,7 +17,7 @@ const notes_fetcher = async (parameter:string) => {
 export default function Notes_Panel() {
     const {get} = useNavigation()
     const tag = get('tag')
-    const id = Number(get('id'))
+    const id = get('id')
     const defaultCurrent = {title:'', content:'', id:undefined, last_edited:'', tags:[]}
     const param = get('parameter')
     const [current, setCurrent] = useState<note>(defaultCurrent)
@@ -28,10 +28,10 @@ export default function Notes_Panel() {
     const { data: notes, error, isLoading } = useSWR([parse_query(tag, param)], notes_fetcher, options)
     
     useEffect(() => {
-        if (current?.id === id) {
+        if (current?.id === Number(id)) {
 
         }
-        if (!id) {
+        if (!id || id == '0') {
             setCurrent(defaultCurrent)
         }
         else {
@@ -60,7 +60,7 @@ export default function Notes_Panel() {
             {/*//@ts-expect-error */}
             <Notes_Sidebar notes={notes?.data} />
             
-            {id !==0  && <Full_Note
+            {id && <Full_Note
                 update_details={{ ...patchLoad, id: Number(current?.id) }}
                 handleChange={handleChange}
                 current={current}

@@ -14,7 +14,17 @@ export const options = {
 export default function Sidebar() {
     const { get } = useNavigation()
     const screen_width = useWindowSize().width
-    const pane = get('pane')
+    const mobile = get('mobile')
+    
+    function showTags() {
+        if (mobile === 'Tags') {
+            return true
+        }
+        if (screen_width >= 1280) {
+            return true
+        }
+        return false
+    }
 
     return (
         <section className={`flex flex-col flex-shrink-0 overflow-y-scroll no-scrollbar border-r-[0.5px] border-r-borders w-full xl:w-[272px] px-4 pt-3`}>
@@ -28,7 +38,7 @@ export default function Sidebar() {
         {screen_width >= 1280 &&<div className="my-2 hidden xl:block">
             <HR_LINE/>
         </div>}
-            {screen_width >= 1280 || pane == 'Tags' && <Tags/>}
+            {showTags() && <Tags/>}
         </section>
     )
 }
