@@ -15,20 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
   }) {
   
-  const circles = (
-    <Circles
-      height="40"
-      width="40"
-      color="#355CFF"
-      ariaLabel="circles-loading"
-      wrapperClass=""
-      visible={true}
-    />
-  )
   return (
     <html lang="en">
       <body>
-        <Suspense fallback={circles}>
+        <Suspense fallback={<div>Loading...</div>}>
           <main className="h-screen overflow-y-scroll no-scrollbar w-full 2xl:w-[1440px] mx-auto">
             {children}
             <Notification />
