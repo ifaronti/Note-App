@@ -6,7 +6,7 @@ import useWindowSize from "@/hooks/windowSize"
 
 export default function Search_Bar() {
     const { del, set, get } = useNavigation()
-    const showSearch = get('search')
+    const mobile = get('mobile')
     const screen_width = useWindowSize().width
 
     function handleSubmit(e: formEvent) {
@@ -18,7 +18,7 @@ export default function Search_Bar() {
 
 
     function display() {
-        if (screen_width >= 1280 || showSearch) {
+        if (screen_width >= 1280 || mobile === 'Search') {
             return true
         }
         return false

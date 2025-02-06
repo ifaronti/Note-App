@@ -46,7 +46,7 @@ export default function NavBar() {
     }
 
     return (
-        <nav className="h-fit mt-5 md:mt-6 xl:mt-[unset] px-8 xl:h-[81px] justify-between flex-col xl:flex-row xl:border-b-[1px] xl:border-b-borders flex xl:items-center">
+        <nav className="h-fit mt-5 md:mt-6 xl:mt-[unset] px-8 xl:h-[81px] xl:justify-between flex-col gap-4 xl:gap-[unset] xl:flex-row xl:border-b-[1px] xl:border-b-borders flex xl:items-center">
             {display() &&<h1 className={`${presets.preset1} text-text9`}>
                 {nav_text()}
             </h1>}
