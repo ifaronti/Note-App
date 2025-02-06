@@ -23,7 +23,7 @@ export default function Note_Actions({create_note, patch_note, current}:props) {
 
     return (
         <div className="h-[41px] xl:pb-5 flex justify-between items-center gap-4 w-full">
-            {screen_width < 1280 && <Back_Button text="Go"/>}
+            {screen_width < 1280 && <Back_Button text="Go back"/>}
 
             <div className={`flex gap-2 text-sm`}>
                 {screen_width < 1280 && <Delete_Or_Archive current={current} />}

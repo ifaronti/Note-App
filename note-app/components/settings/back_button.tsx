@@ -11,7 +11,7 @@ export default function Back_Button({text}:{text:string}) {
     }
     
     return (
-        <div className="w-full px-7">
+
             <button
                 onClick={go_back}
                 className={`${presets.preset4} hover:text-[#355CFF] flex items-center gap-2 bg-none border-none`}
@@ -19,6 +19,6 @@ export default function Back_Button({text}:{text:string}) {
                 <span>{chevy_left}</span>
                 <span>{text}</span>
             </button>
-        </div>
+
     )
 }

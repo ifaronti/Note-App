@@ -20,8 +20,15 @@ export default function Settings() {
           </div>
         )
       }
-      {screen_width < 1280 && current && <Back_Button text="Settings"/>}
-      {current == 'font' && <Font_Theme/>}
+      {
+        screen_width < 1280 && current && (
+          <div className="w-full px-7">
+            <Back_Button text="Settings" />
+          </div>
+        )
+      }
+      
+      {current == 'font' && <Font_Theme />}
       {current == 'color' && <Color_Theme />}
       {current == "password" && <Change_Password/>}
     </div>
