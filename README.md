@@ -14,7 +14,7 @@
     - change password
     - recieve email for password reset incase forgotten
     - reset password
-
+#
 ## Frontend
   - Next15
   - tailwind
@@ -22,7 +22,7 @@
   - axios
   - React
   - React-Load-Spinner
-
+#
 ## Backend
   - Language:
     - Python
@@ -44,11 +44,11 @@
     - Neon.tech (database server host)
     - vercel (frontend host)
     - gmail for mail client (password reset)
-
+#
 ## Links:
   - [frontend](https://note-obhp313k5-ifarontis-projects.vercel.app/)
   - [backend repo](https://github.com/ifaronti/Note-Backend-Fastapi-B)
-
+#
 ## Acknowledgment:
  - Stackoverflow: for disovering better practices.
  - Chatgpt: for fixing errors in my raw sql queries.
