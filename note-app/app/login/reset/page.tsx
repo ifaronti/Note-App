@@ -1,4 +1,3 @@
-"use server"
 
 import Reset_Password from "@/components/auth/reset_password";
 

@@ -1,5 +1,3 @@
-"use server"
-import { useLogin } from "@/hooks/login";
 import Form from "@/components/auth/form";
 import Auth_Hero from "@/components/auth/auth_hero";
 import Auth_Links from "@/components/auth/auth_links";
