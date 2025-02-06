@@ -14,6 +14,7 @@
     - change password
     - recieve email for password reset incase forgotten
     - reset password
+    - login with github
 #
 ## Frontend
   - Next15
