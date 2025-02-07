@@ -40,7 +40,7 @@
     - Fastapi-mail 
 
   - Services:
-    - AWS ECS (Image repo)
+    - AWS ECR (Image repo)
     - AWS LAMBDA (serverles)
     - Neon.tech (database server host)
     - vercel (frontend host)
