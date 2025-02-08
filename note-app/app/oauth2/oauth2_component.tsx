@@ -1,36 +1,35 @@
 'use client'
 
 import { git_login } from "@/hooks/git_login";
-import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Circles } from 'react-loader-spinner'
+import useNavigation from "@/hooks/useNavigation";
 
 
 export default function Oauth2() {
+    const {set, push, get} = useNavigation()
 
-    const params = new URLSearchParams(useSearchParams())
-    const router = useRouter()
 
     useEffect(() => {
         const get_user = async () => {
-            const code = String(params.get('code'))
+            const code = String(get('code'))
             if (!code) {
-                params.set('toast', 'Unable to get git code')
+                set('toast', 'Unable to get git code -red')
             }
 
             try {
                 const data = await git_login(code)
                 if (data.success) {
-                    params.set('toast', data.message)
+                    set('toast', data.message)
                     localStorage.setItem('token', data.access_token)
-                    router.push('/dashboard?color=light&pane=&font=san-serif')
+                    push('/dashboard?color=light&pane=&font=san-serif')
                 }
                 if (!data.success || data.details) {
-                    params.set('toast', data.message)
+                    set('toast', data.message + ' -red')
                 }
             }
             catch (err:any) {
-                params.set('toast', err.message + ' -red')
+                set('toast', err.message + ' -red')
             }
         } 
         get_user()
