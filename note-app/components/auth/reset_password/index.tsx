@@ -2,7 +2,7 @@
 import Password_Input from "../form/password_input";
 import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import { password_reset } from "@/hooks/reset_password";
 import Form_Btn from "../form/form_btn";
@@ -11,13 +11,11 @@ import Link from "next/link";
 
 export default function Reset_Password() {
     const {set, push, get, get_font} = useNavigation()
-    const [showStatus, setShowStatus] = useState(false)
     const toast = get('toast')
 
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.tooShort) {
             set('toast', 'Password must be atleast 8 characters long')
-            return setShowStatus(true)
         }
     }
 
@@ -35,23 +33,20 @@ export default function Reset_Password() {
         const confirm = String(formData.get('confirm'))
     
         if (!password || password !== confirm) {
-            set('toast','Passwords must match to avoid errors')
-            setShowStatus(true)
+            set('toast','Passwords must match')
             return
         }
         try {
             const response = await password_reset({ password: password }, String(get('token')))
             if (response.success) {
                 set('toast', 'Password reset was successful')
-                setShowStatus(true)
                 setTimeout(() => {
                     push('/login')
                 }, 2000)
             }
         }
         catch (err: any) {
-            setShowStatus(true)
-            set('toast', err.message)
+            set('toast', err.message + ' -red')
         }
     }
     
@@ -67,7 +62,7 @@ export default function Reset_Password() {
                 <Password_Input handleBlur={handleBlur} label="Confirm Password" name="confirm" />
 
                 <Form_Btn btn_text="Reset Password" />
-                <Form_Errors text={toast||''} error = {showStatus} />
+                <Form_Errors text={toast? toast:''}  />
             </form>
             <Link className="text-center" href={'/'}>Return To Home Page</Link>
         </section>

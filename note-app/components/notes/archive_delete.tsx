@@ -49,7 +49,7 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
                 {
                     right_bar() 
                     &&
-                    <button onClick={pane== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start border-[0px] bg-none text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
+                    <button onClick={pane=== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start border-[0px] bg-none text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
                         <span>{pane==="Archived"? restore_icon:archive_icon}</span> 
                         <span className="hidden xl:block">{pane === "Archived"? "Restore Note": "Archive Note"}</span>
                     </button>

@@ -2,7 +2,6 @@
 import Email_Input from "../form/email_input";
 import Form_Errors from "../form/errors";
 import Auth_Hero from "../auth_hero";
-import {useState } from "react";
 import { formEvent, inputEvent } from "@/components/models/props";
 import Form_Btn from "../form/form_btn";
 import { useResetLink } from "@/hooks/reset_link";
@@ -11,13 +10,11 @@ import useNavigation from "@/hooks/useNavigation";
 
 export default function Forgot_Password() {
     const {set, get, push, get_font} = useNavigation()
-    const [showStatus, setShowStatus] = useState(false)
     const status_message = get('toast')
 
     const handleBlur = (e: inputEvent) => {
         if (e.target.validity.patternMismatch) {
-            set('toast', 'Enter a valid email')
-            setShowStatus(true)
+            set('toast', 'Enter a valid email -red')
         }
     }
 
@@ -29,7 +26,6 @@ export default function Forgot_Password() {
             const response = await useResetLink(body)
             if (response.success) {
                 set('toast', 'Link sent to email')
-                setShowStatus(true)
                 setTimeout(() => {
                     push('/login')
                 },2000)
@@ -37,7 +33,6 @@ export default function Forgot_Password() {
         }
         catch (err: any) {
             set('toast', err.message)
-            setShowStatus(true)
         }
     }
 
@@ -52,7 +47,7 @@ export default function Forgot_Password() {
                     handleBlur={handleBlur}
                 />
                 <Form_Btn btn_text="Send Reset Link" />
-                <Form_Errors text={String(status_message)} error = {showStatus} />
+                <Form_Errors text={status_message? status_message : ''}  />
             </form>
         </section>
     )

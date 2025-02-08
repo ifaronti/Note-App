@@ -9,11 +9,10 @@ import { useState } from "react"
 export default function Change_Password() {
     const { set, get, del } = useNavigation()
     const toast = get('toast')
-    const [showStatus, setShowStatus] = useState(false)
+
 
     async function reset_pass(e: formEvent) {
         e.preventDefault()
-        setShowStatus(false)
         del('toast')
 
         const formData = new FormData(e.currentTarget)
@@ -31,12 +30,10 @@ export default function Change_Password() {
             const data = await password_reset(payload, String(localStorage.getItem('token')))
             if(data.success) {
                 set('toast', 'Password Changed Successfully')
-                setShowStatus(true)
             }
         }
         catch(err: any) {
             set('toast', err.message + ' -red')
-            setShowStatus(true)
         }
     }
 
@@ -57,7 +54,7 @@ export default function Change_Password() {
             >
                 Save Password
             </button>
-            {toast && <Form_Errors error={showStatus} text={toast} />}
+            {toast && <Form_Errors text={toast} />}
         </form>
     )
 }

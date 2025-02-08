@@ -24,11 +24,13 @@ export default function Full_Note({ current, handleChange, update_details }: pro
 
         try {
             const data = await new_note(payload, String(localStorage.getItem('token')))
-            set('toast', data.message)
-            del('title')
-            await mutate([parse_query('all', '')])
-            if (payload.tags[0]) {
-                await mutate('tags')
+            if (data.success) {
+                set('toast', data.message)
+                del('title')
+                await mutate([parse_query('all', '')])
+                if (payload.tags[0]) {
+                    await mutate('tags')
+                }
             }
             return
         }

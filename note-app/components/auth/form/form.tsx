@@ -25,12 +25,12 @@ export default function Form_Component({
         <form onSubmit={handleSubmit} className={`pt-6 ${get_font()} flex flex-col gap-4 w-full`}>
             <div>
                 <Email_Input handleBlur={handleBlur} />
-                <Form_Errors error={errors.email} text="Please enter a valid email address"/>
+                <Form_Errors text={errors.email ? "Please enter a valid email address" : ''}/>
             </div>
 
             <div>
                 <Password_Input handleBlur={handleBlur} label="Password" name="password" />
-                <Form_Errors error={errors.password} text="Password must 8 or more characters long" />
+                <Form_Errors text={errors.password ? "Password must 8 or more characters long" : ''} />
             </div>
             <Form_Btn btn_text={btn_text} />
         </form>

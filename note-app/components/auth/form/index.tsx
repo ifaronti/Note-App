@@ -48,12 +48,12 @@ export default function Form({ btn_text }: props) {
                 set('toast', 'logged in successfully')
                 push('/dashboard?color=light&font=san-serif&pane=')
             }
-            if (data.message) {
+            if (!data.success) {
                 push('/login')
             }
         }
         catch (err: any) {
-            set('toast', err.message)
+            set('toast', err.message + ' -red')
         }
     }
 
