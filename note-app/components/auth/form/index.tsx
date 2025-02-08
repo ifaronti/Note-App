@@ -33,6 +33,8 @@ export default function Form({ btn_text }: props) {
         e.stopPropagation()
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
+
+        //Fastapi login route can handle formData with its oauth2passwordbearer module but not register route
         const rawData = {
             email:String(formData.get('email')),
             password:String(formData.get('password')),
@@ -47,9 +49,6 @@ export default function Form({ btn_text }: props) {
                 localStorage.setItem('token', data.access_token)
                 set('toast', 'logged in successfully')
                 push('/dashboard?color=light&font=san-serif&pane=')
-            }
-            if (!data.success) {
-                push('/login')
             }
         }
         catch (err: any) {
