@@ -2,22 +2,23 @@
 
 import { git_login } from "@/hooks/git_login";
 import { useEffect } from "react";
-import { Circles } from 'react-loader-spinner'
+import { Circles } from 'react-loader-spinner';
 import useNavigation from "@/hooks/useNavigation";
 
 
 export default function Oauth2() {
-    const {set, push, get} = useNavigation()
+    const { set, push, get } = useNavigation()
+    const code = get('code')
 
 
     useEffect(() => {
         const get_user = async () => {
-            const code = String(get('code'))
             if (!code) {
                 set('toast', 'Unable to get git code -red')
             }
 
             try {
+                //@ts-expect-error
                 const data = await git_login(code)
                 if (data.success) {
                     set('toast', data.message)
@@ -25,7 +26,7 @@ export default function Oauth2() {
                     return push('/dashboard?color=light&pane=&font=san-serif')
                 }
                 if (!data.success || data.details) {
-                    set('toast', data.message + ' -red')
+                    return set('toast', data.message + ' -red')
                 }
             }
             catch (err:any) {
@@ -33,7 +34,7 @@ export default function Oauth2() {
             }
         } 
         get_user()
-    }, [])
+    }, [code])
     
     return (
         <div className="w-full h-full flex items-center justify-center">
