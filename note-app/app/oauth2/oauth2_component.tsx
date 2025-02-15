@@ -22,7 +22,7 @@ export default function Oauth2() {
                 if (data.success) {
                     set('toast', data.message)
                     localStorage.setItem('token', data.access_token)
-                    push('/dashboard?color=light&pane=&font=san-serif')
+                    return push('/dashboard?color=light&pane=&font=san-serif')
                 }
                 if (!data.success || data.details) {
                     set('toast', data.message + ' -red')
