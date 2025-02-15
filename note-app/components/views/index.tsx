@@ -57,20 +57,18 @@ export default function Views() {
     
     
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <section className={`h-full ${get_font()} relative w-full flex flex-col xl:flex-row`}>
-                {screen_width < 1280 && <Mobile_Hero/>}
-                <Modal />
-                <Sidebar />
-                <div className="w-full flex flex-col relative h-full">
-                    <NavBar/>
-                    <div className="h-full overflow-y-scroll no-scrollbar ">
-                    {panel()}
-                    </div>
+        <section className={`h-full ${get_font()} relative w-full flex flex-col xl:flex-row`}>
+            {screen_width < 1280 && <Mobile_Hero/>}
+            <Modal />
+            <Sidebar />
+            <div className="w-full flex flex-col relative h-full">
+                <NavBar/>
+                <div className="h-full overflow-y-scroll no-scrollbar ">
+                {panel()}
                 </div>
-                <Mobile_Nav/>
-            </section>
-        </Suspense>
+            </div>
+            <Mobile_Nav/>
+        </section>
 
     )
 }

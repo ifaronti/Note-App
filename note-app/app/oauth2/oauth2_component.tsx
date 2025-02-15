@@ -40,18 +40,16 @@ export default function Oauth2() {
     }, [])
     
     return (
-        <Suspense>
-            <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
-                {status}
-                <Circles
-                    height="80"
-                    width="80"
-                    color="#355CFF"
-                    ariaLabel="circles-loading"
-                    wrapperClass=""
-                    visible={true}
-                />
-            </div>
-        </Suspense>
+        <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+            {status}
+            <Circles
+                height="80"
+                width="80"
+                color="#355CFF"
+                ariaLabel="circles-loading"
+                wrapperClass=""
+                visible={true}
+            />
+        </div>
     )
 }
