@@ -38,14 +38,7 @@ export default function Oauth2() {
     
     return (
         <div className="w-full h-full flex items-center justify-center">
-            <Circles
-                height="80"
-                width="80"
-                color="#355CFF"
-                ariaLabel="circles-loading"
-                wrapperClass=""
-                visible={true}
-            />
+            Redirecting
         </div>
     )
 }
