@@ -44,9 +44,12 @@ export default function Reset_Password() {
                     push('/login')
                 }, 2000)
             }
+            else {
+                set('toast', 'Ensure password is 8 or more characters')
+            }
         }
         catch (err: any) {
-            set('toast', err.message + ' -red')
+            set('toast', 'Unexpected error has occured' + ' -red')
         }
     }
     

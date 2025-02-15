@@ -30,9 +30,12 @@ export default function Forgot_Password() {
                     push('/login')
                 },2000)
             }
+            else {
+                set('toast', 'Ensure email is registered -red')
+            }
         }
         catch (err: any) {
-            set('toast', err.message)
+            set('toast', 'Ensure the email matches one registered' + '-red')
         }
     }
 

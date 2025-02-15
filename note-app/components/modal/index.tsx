@@ -41,7 +41,7 @@ export default function Modal() {
             }
         }
         catch (err:any) {
-            set('toast', err.message +' -red')
+            set('toast', 'Unexpected error has occured' +' -red')
             del('dialog')
         }
     }

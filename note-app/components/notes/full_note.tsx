@@ -35,7 +35,7 @@ export default function Full_Note({ current, handleChange, update_details }: pro
             return
         }
         catch (err:any) {
-            set('toast', err.message + ' -red')
+            set('toast', 'Unexpected error has occured -red')
         }
     }
 

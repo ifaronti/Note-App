@@ -27,11 +27,11 @@ export default function Oauth2() {
                     return push('/dashboard?color=light&pane=&font=san-serif')
                 }
                 if (!data.success || data.details) {
-                    return set('toast', data.message + ' -red')
+                    return set('toast', 'Unable to reach a handshake from github' + ' -red')
                 }
             }
             catch (err:any) {
-                set('toast', err.message + ' -red')
+                set('toast', 'Unexpected error has occured' + ' -red')
             }
         } 
         get_user()

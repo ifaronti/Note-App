@@ -33,7 +33,7 @@ export default function Change_Password() {
             }
         }
         catch(err: any) {
-            set('toast', err.message + ' -red')
+            set('toast', 'An unexpected error  has occured -red')
         }
     }
 

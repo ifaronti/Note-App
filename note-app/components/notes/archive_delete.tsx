@@ -29,7 +29,7 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
             }
         }
         catch (err:any) {
-            set('toast', err.message + ' -red')
+            set('toast', 'Unexpected error has occured -red')
         }
     }
 

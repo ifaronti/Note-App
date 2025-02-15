@@ -51,9 +51,12 @@ export default function Form({ btn_text }: props) {
                 push('/dashboard?color=light&font=san-serif&pane=')
                 return
             }
+            else {
+                set('toast', 'Ensure details are correct and try again -red')
+            }
         }
         catch (err: any) {
-            set('toast', err.message + ' -red')
+            set('toast','An unexpected error has occured' + ' -red')
         }
     }
 
