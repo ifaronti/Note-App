@@ -7,19 +7,21 @@ import { Suspense } from "react";
 
 export default function Page() {
     return (
-        <section className="relative gap-4 w-[343px] md:w-[540px] bg-page rounded-lg py-12 px-4 md:px-8 flex flex-col justify-center items-center">
-            <Auth_Hero
-                header="Welcome to note"
-                description="Please login to continue"
-            />
-            
-            <Form btn_text="Login"/>
+        <Suspense>
+            <section className="relative gap-4 w-[343px] md:w-[540px] bg-page rounded-lg py-12 px-4 md:px-8 flex flex-col justify-center items-center">
+                <Auth_Hero
+                    header="Welcome to note"
+                    description="Please login to continue"
+                />
+                
+                <Form btn_text="Login"/>
 
-            <Auth_Links oauth_link={String(process.env.oauth_link)} />
-            
-            <Suspense>
+                <Auth_Links oauth_link={String(process.env.oauth_link)} />
+                
+
                 <Notification />
-            </Suspense>
-        </section>
+            
+            </section>
+        </Suspense>
     )
 }
