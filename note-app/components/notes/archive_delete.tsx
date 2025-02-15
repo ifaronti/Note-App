@@ -11,6 +11,7 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
     const { set, get} = useNavigation()
     const pane = get('pane')
     const id = Number(get('id'))
+    const dialog = get('dialog')
 
     async function delete_modal() {
         set('dialog', 'delete')
@@ -51,14 +52,14 @@ export default function Delete_Or_Archive({ current }: { current: note }) {
                     &&
                     <button onClick={pane=== 'Archived'? restore_note:open_modal} className={`${presets.preset4} xl:justify-start border-[0px] bg-none text-text9 xl:h-11 xl:w-[242px] xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border xl:rounded-lg xl:border-borders`}>
                         <span>{pane==="Archived"? restore_icon:archive_icon}</span> 
-                        <span className="hidden animate-bounce xl:active:animate-pulse xl:block">{pane === "Archived"? "Restore Note": "Archive Note"}</span>
+                        <span className={`hidden xl:block ${dialog === 'archive'? 'animate-bounce':''}`}>{pane === "Archived"? "Restore Note": "Archive Note"}</span>
                     </button>
                 }
 
                 {
                     right_bar()
                     && 
-                    <button onClick={delete_modal} className={`${presets.preset4} xl:justify-start text-text9 xl:w-[242px] xl:h-11 xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border-[1px] xl:rounded-lg xl:border-borders border-[0px]`}>
+                    <button onClick={delete_modal} className={`${presets.preset4} ${dialog === 'delete'? 'animate-bounce': ''} xl:justify-start text-text9 xl:w-[242px] xl:h-11 xl:gap-2 xl:flex xl:items-center xl:px-4 xl:border-[1px] xl:rounded-lg xl:border-borders border-[0px]`}>
                         <span>{delete_icon}</span> 
                         <span className="hidden xl:block">Delete Note</span>
                     </button>
