@@ -37,11 +37,11 @@ export default function Oauth2() {
             }
         } 
         get_user()
-    }, [code])
+    }, [])
     
     return (
         <div className="w-full h-full flex items-center justify-center">
-            Redirecting
+            {status}
         </div>
     )
 }
