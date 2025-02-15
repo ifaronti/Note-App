@@ -1,7 +1,7 @@
 'use client'
 
 import useNavigation from "@/hooks/useNavigation";
-import { useEffect, useState } from "react";
+import { useEffect, Suspense } from "react";
 
 export default function Notification() {
     const { get, del } = useNavigation()
@@ -18,17 +18,19 @@ export default function Notification() {
     },[toast])
     
     return (
-        <div
-            className={`${toast? 'left-[40%] bg-[#355cff] notification bottom-10 w-[250px] flex h-8 items-center py-2 fixed text-white px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
-        >
-        <div>
-            {
-                toast?.includes('-red') ? info_svg
-                    :
-                !toast ? '' : check_mark
-            }
-        </div>
-            <p>{toast?.replace('-red', '')}</p>
-        </div>
+        <Suspense>
+            <div
+                className={`${toast? 'left-[40%] bg-[#355cff] notification bottom-10 w-[250px] flex h-8 items-center py-2 fixed text-white px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
+            >
+            <div>
+                {
+                    toast?.includes('-red') ? info_svg
+                        :
+                    !toast ? '' : check_mark
+                }
+            </div>
+                <p>{toast?.replace('-red', '')}</p>
+            </div>
+        </Suspense>
     )
 }

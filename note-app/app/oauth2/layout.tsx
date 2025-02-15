@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import Notification from "@/components/notifications"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -6,9 +5,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         
         <section className="bg-auth_page w-full h-full">
             {children}
-            <Suspense>
-                <Notification/>
-            </Suspense>
+
+            <Notification/>
+
         </section>
     )
 }
