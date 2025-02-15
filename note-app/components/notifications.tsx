@@ -20,16 +20,16 @@ export default function Notification() {
     return (
         <Suspense>
             <div
-                className={`${toast? 'left-[40%] bg-[#355cff] notification bottom-10 w-[250px] flex h-8 items-center py-2 fixed text-white px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
+                className={`${toast? 'left-[40%] bg-[#4d505c] notification bottom-10 max-w-[350px] flex h-8 items-center py-2 fixed text-white px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
             >
-            <div>
+            <div className="">
                 {
                     toast?.includes('-red') ? info_svg
                         :
                     !toast ? '' : check_mark
                 }
             </div>
-                <p>{toast?.replace('-red', '')}</p>
+                <p className="w-full">{toast?.replace('-red', '')}</p>
             </div>
         </Suspense>
     )
