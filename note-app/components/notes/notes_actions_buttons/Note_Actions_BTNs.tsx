@@ -33,7 +33,7 @@ export default function Note_Actions({create_note, patch_note, current}:props) {
                         disabled={pane === 'Home' ? false : true}
                         onClick={title === "Untitled Note" ? create_note : patch_note}
                         type="button"
-                        className="xl:bg-[#335CFF] xl:h-[41px] xl:w-[99px] text-[#355CFF] rounded-lg xl:text-white bg-none hover:text-[#2547D0] xl:hover:text-[white] border-none xl:hover:bg-[#2547D0]"
+                        className="xl:bg-[#335CFF] active:animate-bounce xl:active:animate-pulse xl:h-[41px] xl:w-[99px] text-[#355CFF] rounded-lg xl:text-white bg-none hover:text-[#2547D0] xl:hover:text-[white] border-none xl:hover:bg-[#2547D0]"
                     >
                         {pane === 'Home' ? 'Save Note' : 'Inactive'}
                     </button>

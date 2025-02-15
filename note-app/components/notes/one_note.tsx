@@ -16,10 +16,10 @@ export default function Note({ note}: note_props) {
 
     function bg() {
         if (id == note.id && color === 'light') {
-            return'bg-[#F3F5F8]'
+            return'bg-[#F3F5F8] animate-pulse'
         }
         if (id == note.id && color === 'dark') {
-            return'bg-[#232530]'
+            return'bg-[#232530] animate-pulse'
         }
         return 'bg-none'
     }

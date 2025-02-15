@@ -21,7 +21,7 @@ export default function Nav_Buttons() {
 
     return (
         <div className="w-full xl:flex flex-col hidden">
-            <button onClick={all_notes} className={`flex px-3 w-full h-10 ${current_pane === "Home"? "bg-auth_page text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
+            <button onClick={all_notes} className={`flex px-3 w-full h-10 ${current_pane === "Home"? "bg-auth_page animate-pulse text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
                 <span className="flex items-center gap-2">
                     {home_svg}
                     <span>All Notes</span>
@@ -29,7 +29,7 @@ export default function Nav_Buttons() {
                 {current_pane == "Home" && <span>{chevy_right}</span>}
             </button>
 
-            <button onClick={archived} className={`flex px-3 h-10 w-full ${current_pane === "Archived"? "bg-auth_page text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
+            <button onClick={archived} className={`flex px-3 h-10 w-full ${current_pane === "Archived"? "bg-auth_page animate-pulse text-text9 rounded-lg":"bg-none text-text7"} justify-between items-center`}>
                 <span className="flex items-center gap-2">
                     {archived_svg}
                     <span>Archived Notes</span>
