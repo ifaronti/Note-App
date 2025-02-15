@@ -1,13 +1,13 @@
 'use client'
 
 import { git_login } from "@/hooks/git_login";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Circles } from 'react-loader-spinner';
 import useNavigation from "@/hooks/useNavigation";
 
 
 export default function Oauth2() {
-    const [status, setStatus] = useState('')
+    const [status, setStatus] = useState('Collecting user info from github')
     const { set, push, get, del } = useNavigation()
     const code = get('code')
 
@@ -15,12 +15,9 @@ export default function Oauth2() {
     useEffect(() => {
         const get_user = async () => {
             if (!code) {
-                set('toast', 'Unable to get git code -red')
+                return set('toast', 'Unable to get git code -red')
             }
-
             try {
-                
-                setStatus('Collecting user info from github')
                 const data = await git_login(String(code))
                 setStatus('Redirecting')
                 if (data.success) {

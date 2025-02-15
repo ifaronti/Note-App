@@ -49,6 +49,7 @@ export default function Form({ btn_text }: props) {
                 localStorage.setItem('token', data.access_token)
                 set('toast', 'logged in successfully')
                 push('/dashboard?color=light&font=san-serif&pane=')
+                return
             }
         }
         catch (err: any) {

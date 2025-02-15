@@ -1,4 +1,4 @@
-import Oauth2 from "./oauth2_component"
+import Oauth2 from "../../components/auth/oauth2/oauth2_component"
 
 export default function Page() {
     

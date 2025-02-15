@@ -17,12 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Suspense>
           <main className="h-screen overflow-y-scroll no-scrollbar w-full 2xl:w-[1440px] mx-auto">
               {children}
-              <Notification />
           </main>
-      </Suspense>
       </body>
     </html>
   );

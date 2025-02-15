@@ -1,6 +1,6 @@
 import Forgot_Password from "@/components/auth/forgot_password";
 
-export default async function Page() {
+export default function Page() {
     return (
         <Forgot_Password />
     )
