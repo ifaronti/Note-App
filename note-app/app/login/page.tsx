@@ -1,6 +1,9 @@
 import Form from "@/components/auth/form";
 import Auth_Hero from "@/components/auth/auth_hero";
 import Auth_Links from "@/components/auth/auth_links";
+import Notification from "@/components/notifications";
+import { Suspense } from "react";
+
 
 export default function Page() {
     return (
@@ -13,6 +16,10 @@ export default function Page() {
             <Form btn_text="Login"/>
 
             <Auth_Links oauth_link={String(process.env.oauth_link)} />
+            
+            <Suspense>
+                <Notification />
+            </Suspense>
         </section>
     )
 }

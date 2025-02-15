@@ -2,9 +2,11 @@ import Link from "next/link"
 import { presets } from "@/components/text"
 import { logo } from "@/components/svg_assets"
 import App_Description from "../components/home_page/app_description"
+import { Suspense } from "react"
 
 export default function Home() {
   return (
+    <Suspense>
       <main className="w-full h-screen bg-[#E0E4EA] flex items-center justify-center">
         <div className="relative gap-4 w-[343px] h-fit md:w-[540px] bg-page rounded-lg py-12 px-4 md:px-8 flex flex-col justify-center items-center">
           {logo}
@@ -25,5 +27,6 @@ export default function Home() {
           </Link>
         </div>
       </main>
+    </Suspense>
   )
 }
