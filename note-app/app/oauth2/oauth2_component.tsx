@@ -1,7 +1,7 @@
 'use client'
 
 import { git_login } from "@/hooks/git_login";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Circles } from 'react-loader-spinner';
 import useNavigation from "@/hooks/useNavigation";
 
@@ -40,16 +40,18 @@ export default function Oauth2() {
     }, [])
     
     return (
-        <div className="w-full h-full flex flex-col items-center justify-center">
-            {status}
-            <Circles
-                height="80"
-                width="80"
-                color="#355CFF"
-                ariaLabel="circles-loading"
-                wrapperClass=""
-                visible={true}
-            />
-        </div>
+        <Suspense>
+            <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+                {status}
+                <Circles
+                    height="80"
+                    width="80"
+                    color="#355CFF"
+                    ariaLabel="circles-loading"
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        </Suspense>
     )
 }
