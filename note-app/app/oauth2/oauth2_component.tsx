@@ -19,8 +19,10 @@ export default function Oauth2() {
             }
 
             try {
-                //@ts-expect-error
-                const data = await git_login(code)
+                
+                setStatus('Collecting user info from github')
+                const data = await git_login(String(code))
+                setStatus('Redirecting')
                 if (data.success) {
                     set('toast', data.message)
                     localStorage.setItem('token', data.access_token)
