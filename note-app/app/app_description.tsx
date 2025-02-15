@@ -15,7 +15,7 @@ export default function App_Description() {
                     return (
                         <p
                             key={index + 1}
-                            className={`${presets.preset3} font-sans text-text8`}
+                            className={`${presets.preset3} font-sans text-text8 text-[13px] md:text-[16px] `}
                         >
                             {text}
                         </p>
