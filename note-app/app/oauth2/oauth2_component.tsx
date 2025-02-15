@@ -8,7 +8,7 @@ import useNavigation from "@/hooks/useNavigation";
 
 export default function Oauth2() {
     const [status, setStatus] = useState('')
-    const { set, push, get } = useNavigation()
+    const { set, replace, get } = useNavigation()
     const code = get('code')
 
 
@@ -26,7 +26,7 @@ export default function Oauth2() {
                 if (data.success) {
                     set('toast', data.message)
                     localStorage.setItem('token', data.access_token)
-                    return push('/dashboard?color=light&pane=&font=san-serif')
+                    return replace('/dashboard?color=light&pane=&font=san-serif')
                 }
                 if (!data.success || data.details) {
                     return set('toast', data.message + ' -red')
@@ -42,6 +42,14 @@ export default function Oauth2() {
     return (
         <div className="w-full h-full flex items-center justify-center">
             {status}
+            <Circles
+                height="80"
+                width="80"
+                color="#355CFF"
+                ariaLabel="circles-loading"
+                wrapperClass=""
+                visible={true}
+            />
         </div>
     )
 }
