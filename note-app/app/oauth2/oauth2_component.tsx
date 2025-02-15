@@ -4,14 +4,11 @@ import { git_login } from "@/hooks/git_login";
 import { useEffect } from "react";
 import { Circles } from 'react-loader-spinner';
 import useNavigation from "@/hooks/useNavigation";
-import { usePathname } from "next/navigation";
 
 
 export default function Oauth2() {
     const { set, push, get } = useNavigation()
     const code = get('code')
-    const pathname = usePathname()
-    
 
 
     useEffect(() => {
@@ -23,12 +20,12 @@ export default function Oauth2() {
             try {
                 //@ts-expect-error
                 const data = await git_login(code)
-                if (data.success && pathname.includes('oauth2') ) {
+                if (data.success) {
                     set('toast', data.message)
                     localStorage.setItem('token', data.access_token)
                     return push('/dashboard?color=light&pane=&font=san-serif')
                 }
-                else {
+                if (!data.success || data.details) {
                     return set('toast', data.message + ' -red')
                 }
             }
