@@ -3,13 +3,10 @@ import Notification from "@/components/notifications"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <Suspense>
-            <section className="bg-auth_page w-full h-full">
-                {children}
 
-                <Notification/>
+        <section className="bg-auth_page w-full h-full">
+            {children}
+        </section>
 
-            </section>
-        </Suspense>
     )
 }
