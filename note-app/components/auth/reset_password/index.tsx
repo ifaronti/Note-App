@@ -55,10 +55,12 @@ export default function Reset_Password() {
     
     return (
         <section className={`${get_font()} flex bg-page rounded-lg flex-col gap-4 md:w-[540px] px-4 py-12 w-[343px] md:px-12`}>
+            
             <Auth_Hero
                 header="Forgotten your password?"
                 description="Choose a new password to secure your account."
             />
+
             <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
                 <Password_Input handleBlur={handleBlur} label="Password" name="password" />
 
@@ -67,7 +69,9 @@ export default function Reset_Password() {
                 <Form_Btn btn_text="Reset Password" />
                 <Form_Errors text={toast? toast:''}  />
             </form>
+
             <Link className="text-center" href={'/'}>Return To Home Page</Link>
+            
         </section>
     )
 }

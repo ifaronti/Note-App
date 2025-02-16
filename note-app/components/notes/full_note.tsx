@@ -7,7 +7,7 @@ import { update_note } from "@/hooks/update_note";
 import { mutate } from "swr";
 import useNavigation from "@/hooks/useNavigation";
 import { parse_query } from "./helper";
-import Note_Actions from "./notes_actions_buttons/Note_Actions_BTNs";
+import Note_Actions from "./notes_actions_buttons";
 
 type props = {
     handleChange: (e:any)=>void
@@ -17,7 +17,6 @@ type props = {
 
 export default function Full_Note({ current, handleChange, update_details }: props) {
     const { set, del, get } = useNavigation()
-    const pane = get('pane')
     
     async function create_note() {
         const payload = { tags: current.tags, content: current.content, title: current.title }
@@ -50,15 +49,19 @@ export default function Full_Note({ current, handleChange, update_details }: pro
             return
         }
         catch (err:any) {
-            set('toast', err.message+' -red')
+            set('toast', 'An unknown error has occured please try again -red')
         }
     }
     
     return (
         <div className={`flex-col-reverse flex xl:flex-col w-full px-4 xl:px-8 py-5 gap-4 xl:border-r-borders`}>
+
             <div className="w-full h-full flex-col flex gap-4">
+
                 <Note_Header handleChange={handleChange} current={current} />
+
                 <HR_LINE />
+
                 <textarea
                     onChange={handleChange}
                     value={String(current?.content)}
@@ -66,9 +69,12 @@ export default function Full_Note({ current, handleChange, update_details }: pro
                     id="content"
                     className={`w-full bg-inherit flex-grow-0 outline-none resize-none ${presets.preset5} text-text8 h-full overflow-y-scroll no-scrollbar`}
                 />
+
             </div>
             <HR_LINE />
-            <Note_Actions create_note={create_note} patch_note={patch_note} current={current}/>
+
+            <Note_Actions create_note={create_note} patch_note={patch_note} current={current} />
+            
         </div>
     )
 }

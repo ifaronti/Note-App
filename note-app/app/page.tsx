@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { presets } from "@/components/text"
 import { logo } from "@/components/svg_assets"
-import App_Description from "../components/home_page/app_description"
+import App_Description from "@/components/home_page"
 import { Suspense } from "react"
 
 export default function Home() {

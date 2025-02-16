@@ -19,12 +19,12 @@ export default function Modal() {
                 await mutate('tags')
                 //@ts-expect-error
                 await mutate([parse_query(tag, param)])
-                set('toast', data.message)
+                set('toast', 'Note deleted successfuly')
                 del('dialog')
             }
         }
         catch (err:any) {
-            set('toast', err.message + ' -red')
+            set('toast', 'An unexpected error has occured -red')
             del('dialog')
         }
     }

@@ -21,7 +21,13 @@ export default function Forgot_Password() {
     async function handleSubmit(e: formEvent) {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
-        const body = { email: String(formData.get('email')) }
+        const email = formData.get('email')
+
+        if (!email) {
+            return set('toast', 'Email registered to the account required')
+        }
+
+        const body = { email: String('email') }
         try {
             const response = await useResetLink(body)
             if (response.success) {

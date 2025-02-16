@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import Oauth2 from "../../components/auth/oauth2/oauth2_component"
+import Oauth2 from "@/components/auth/oauth2"
 
 export default function Page() {
     
