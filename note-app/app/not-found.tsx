@@ -10,17 +10,24 @@ export default function NotFound() {
     >
       Page Not In Directory.
       <Link 
-        href={'/login'}
-        className="bg-[#355CFF] border-none rounded-lg w-[110px]"
+        href={'/'}
+        className="bg-[#355CFF] text-white flex items-center justify-center border-none h-10 rounded-lg w-[110px]"
       >
-        Login
+        Home
       </Link >
 
       <Link
         href={'/signup'}
-        className="bg-[#355CFF] border-none rounded-lg w-[110px]"
+        className="bg-[#355CFF] text-white flex items-center justify-center border-none rounded-lg h-10 w-[110px]"
       >
         Register
+      </Link >
+
+      <Link
+        href={'/login'}
+        className="bg-[#355CFF] text-white flex items-center justify-center border-none rounded-lg h-10 w-[110px]"
+      >
+        Login
       </Link >
 
     </div>
