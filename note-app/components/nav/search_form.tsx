@@ -36,7 +36,7 @@ export default function Search_Bar() {
                 type="text"
                 name="search"
                 placeholder="Search by title, content or tags..."
-                className={`border-none flex-shrink-0 bg-inherit relative w-full active:text-text9 ${presets.preset5} outline-none focus:text-text9 text-text5 focus:border-none focus:outline-none`}
+                className={`border-none text-text9 flex-shrink-0 bg-inherit relative w-full active:text-text9 ${presets.preset5} outline-none focus:text-text9 text-text5 focus:border-none focus:outline-none`}
             />
         </form>
     )

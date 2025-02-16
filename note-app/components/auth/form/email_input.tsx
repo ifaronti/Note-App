@@ -16,7 +16,7 @@ export default function Email_Input({handleBlur}:inputProps) {
                 name="email"
                 id="email"
                 onBlur={handleBlur}
-                className="h-[42px] bg-inherit px-4 cursor-pointer rounded-lg peer/email w-full invalid:border-[red] border border-[#cacfd8]"
+                className="h-[42px] text-text9 bg-inherit px-4 cursor-pointer rounded-lg peer/email w-full invalid:border-[red] border border-[#cacfd8]"
             />
             <label htmlFor="email" className="text-text9 peer-invalid/email:text-red-500">Email Address</label>
         </div>

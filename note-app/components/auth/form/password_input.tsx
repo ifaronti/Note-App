@@ -23,7 +23,7 @@ export default function Password_Input({name, label, handleBlur, }:inputProps){
                 id={name}
                 onBlur={handleBlur}
                 minLength={8}
-                className="h-[42px] bg-inherit px-4 cursor-pointer rounded-lg peer/password w-full invalid:border-[red] border border-[#cacfd8]"
+                className="h-[42px] text-text9 bg-inherit px-4 cursor-pointer rounded-lg peer/password w-full invalid:border-[red] border border-[#cacfd8]"
             />
             <label htmlFor="password" className="text-text9 relative flex items-center peer-invalid/password:text-red-500">{label} {
                 pathName === '/login' && <Link className={`hover:text-[335CFF] hover:text-red-500 text-text9 underline absolute right-0 ${presets.preset6}`} href={"/login/forgot"}>Forgot</Link>}
