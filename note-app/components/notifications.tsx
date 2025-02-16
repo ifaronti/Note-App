@@ -20,7 +20,7 @@ export default function Notification() {
     return (
         <Suspense>
             <div
-                className={`${toast? 'left-[40%] bg-[#4d505c] notification bottom-10 max-w-[350px] flex h-8 items-center py-2 fixed text-white px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
+                className={`${toast? 'left-[40%] bg-[#eaecf0] notification bottom-10 max-w-[350px] flex h-8 items-center py-2 fixed text-black px-2 gap-2 rounded-lg border border-[#E0E4EA]': 'hidden left-0'}`}
             >
             <div className="">
                 {

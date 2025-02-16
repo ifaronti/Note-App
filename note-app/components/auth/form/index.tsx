@@ -33,11 +33,17 @@ export default function Form({ btn_text }: props) {
         e.stopPropagation()
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
+        const email = formData.get('email')
+        const password = formData.get('password')
+
+        if (!email || !password) {
+            return set('toast', 'All fields are required -red')
+        }
 
         //Fastapi login route can handle formData with its oauth2passwordbearer module but not register route
         const rawData = {
-            email:String(formData.get('email')),
-            password:String(formData.get('password')),
+            email:email,
+            password:password,
         }
         formData.append('username', rawData.email)
         formData.delete('email')

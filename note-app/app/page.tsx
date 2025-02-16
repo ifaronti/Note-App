@@ -13,14 +13,14 @@ export default function Home() {
           <h1 className={`${presets.preset1} font-sans text-text9`}>Welcome To My App.</h1>
           <App_Description/>
           <Link
-            className={`${presets.preset3} h-10 justify-center flex items-center w-[112px] rounded-lg text-white bg-[#355CFF] text-center text-text9`}
+            className={`${presets.preset3} hover:bg-orange-500 transition-all duration-200 h-10 justify-center flex items-center w-[112px] rounded-lg text-white bg-[#355CFF] text-center text-text9`}
             href={'/signup'}
           >
             Register
           </Link>
 
           <Link
-            className={`${presets.preset3} h-10 justify-center flex items-center w-[112px] rounded-lg text-white bg-[#355CFF] text-center text-text9`}
+            className={`${presets.preset3} h-10 justify-center flex items-center transition-all duration-200 hover:bg-orange-500 w-[112px] rounded-lg text-white bg-[#355CFF] text-center text-text9`}
             href={'/login'}
           >
             Login

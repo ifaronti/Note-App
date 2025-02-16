@@ -48,7 +48,7 @@ export default function Change_Password() {
             <Password_Input label="Confirm New Password" name="confirm" />
 
             <button 
-                className={`w-[132px] hover:bg-[#2547D0] bg-[#335CFF] 
+                className={`w-[132px] ${toast? 'animate-bounce':''} hover:bg-[#2547D0] bg-[#335CFF] 
                     ${presets.preset4} text-white h-[41px] self-end rounded-lg`
                 }
             >
