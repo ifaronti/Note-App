@@ -36,6 +36,7 @@ export default function Reset_Password() {
             set('toast','Passwords must match')
             return
         }
+        
         try {
             const response = await password_reset({ password: password }, String(get('token')))
             if (response.success) {
